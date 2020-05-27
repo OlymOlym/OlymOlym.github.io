@@ -81,7 +81,7 @@
     
     
     
-    <article id="post-test" class="article article-type-post" itemscope
+    <article id="post-vue页面空白" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -89,8 +89,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/26/test/"
-    >test</a> 
+  <a class="article-title" href="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/"
+    >vue页面空白</a> 
 </h2>
  
 
@@ -99,8 +99,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/26/test/" class="article-date">
-  <time datetime="2020-05-26T07:41:02.000Z" itemprop="datePublished">2020-05-26</time>
+      <a href="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/" class="article-date">
+  <time datetime="2020-05-26T08:27:59.000Z" itemprop="datePublished">2020-05-26</time>
 </a>
       
       
@@ -117,7 +117,80 @@
       
 
       
-      <p><img src="/2020/05/26/test/test_01.jpeg" alt="test_01"></p>
+      <p>当我们将项目打包后，从dist文件夹里点开首页会发现页面是空白的。打包前运行得好好地，怎么在这里就变成空白的了呢？</p>
+<h2 id="找到"><a href="#找到" class="headerlink" title="\找到**"></a><strong><em>\</em>找到**</strong></h2><p> <img src="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%871.png" alt="图片1">  </p>
+<h2 id="然后"><a href="#然后" class="headerlink" title="\然后**"></a><strong><em>\</em>然后**</strong></h2><p><img src="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%872.png" alt="图片2"></p>
+<p>原因在资源配置上，把图中的assetsPublicPath改成’./‘就ok了。因为打包后你的资源访问不能再从根目录开始了，得改为当前目录。</p>
+<h1 id="css图片加载不出来"><a href="#css图片加载不出来" class="headerlink" title="\css图片加载不出来**"></a><strong><em>\</em>css图片加载不出来**</strong></h1><p>还得设置一下css的资源访问路径</p>
+<h2 id="打开"><a href="#打开" class="headerlink" title="\打开**"></a><strong><em>\</em>打开**</strong></h2><p> <img src="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%873.png" alt="图片3"></p>
+<h2 id="添加"><a href="#添加" class="headerlink" title="\添加**"></a><strong><em>\</em>添加**</strong></h2><p><img src="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%874.png" alt="图片4"></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-mysql数据库空闲8小时自动断开连接" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/"
+    >mysql数据库空闲8小时自动断开连接</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/" class="article-date">
+  <time datetime="2020-05-26T08:24:47.000Z" itemprop="datePublished">2020-05-26</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>项目开发时遇到了一个坑，开发时数据获取正常，一天过后再用就发现获取不到数据了，在网上查阅资料发现这是mysql数据库的一个机制。MySQL服务器默认的“wait_timeout”是28800秒即8小时，意味着如果一个连接的空闲时间超过8个小时，MySQL将自动断开该连接。所以数据就访问不到了。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="\解决方法**"></a><strong><em>\</em>解决方法**</strong></h1><p>网上有好几种解决方法，但我试了试只有修改my.ini文件这种方法有效。其他的避免8小时空闲的也不是什么好方法，定期发送请求感觉治标不治本。<br>先找到my.ini文件，这个文件在mysql根目录里，如果没有，看看是不是系统给隐藏了。打开以后，在最后两行添加<br>t_timeout=31536000<br>interactive_timeout=31536000<br>就哦了。</p>
 
       
       <!-- reward -->
@@ -263,6 +336,234 @@
       
       <p>敲代码，肯定会遇到各种问题，有的是交给计算机处理的error，然后是咱们看的异常exception。而异常中RuntimeException是不能进行捕获抛异常的，原因如下。</p>
 <h2 id="运行时异常和编译时异常"><a href="#运行时异常和编译时异常" class="headerlink" title="运行时异常和编译时异常"></a><em>运行时异常和编译时异常</em></h2><p>咱们的RuntimeException就属于运行时异常，至于为什么不进行处理，因为这些异常是咱们写的代码有问题，例如数组下标越界等，是咱们代码的问题，所以不能捕获这种异常，而是应该进行修改。<br>不是此类异常的，就是编译时异常了，这些异常是可以接受的，但又不想让这些异常影响程序运行，所以就得进行捕获抛出。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-vue中this的作用域" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/06/07/vue%E4%B8%ADthis%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/"
+    >vue中this的作用域</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/06/07/vue%E4%B8%ADthis%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
+  <time datetime="2018-06-07T07:29:54.000Z" itemprop="datePublished">2018-06-07</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"><a href="#页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。" class="headerlink" title="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"></a><em>页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。</em></h2><p>原来函数内的this和函数外的this不是一回事，咱们可以打印一下<br>打印的结果<br>由此可知，在该函数内直接用this可以获取此marker内存储的信息，如我存的address，cost等等。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a><em>解决方法</em></h1><p>若想要在该方法里使用vue，则可以在函数外设置一个变量指向this（即该vue对象），在方法体内调用该变量即可。主要是避免this的重合。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-为什么子类重写父类方法时抛出的异常不能比父类范围广" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/04/23/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E6%96%B9%E6%B3%95%E6%97%B6%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%E4%B8%8D%E8%83%BD%E6%AF%94%E7%88%B6%E7%B1%BB%E8%8C%83%E5%9B%B4%E5%B9%BF/"
+    >为什么子类重写父类方法时抛出的异常不能比父类范围广</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/04/23/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E6%96%B9%E6%B3%95%E6%97%B6%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%E4%B8%8D%E8%83%BD%E6%AF%94%E7%88%B6%E7%B1%BB%E8%8C%83%E5%9B%B4%E5%B9%BF/" class="article-date">
+  <time datetime="2018-04-23T08:21:59.000Z" itemprop="datePublished">2018-04-23</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>我们都知道在java 中，子类重写父类的方法时，如果父类的方法有异常声明，那么子类重写这个方法时候，所要声明的异常不应该比父类的大。如果父类没有抛异常，那么子类也不能抛。<br>那么，为什么子类重写父类方法时抛出的异常不能比父类范围广呢？</p>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a><em>原因</em></h1><p>从字面意思上，子类继承了父类，那么就不应该存在比父类更多的问题，即不能抛出比父类更多的异常。<br>从原理上分析，举个例子，父类中存在一个方法test，一个子类继承了这个父类并且重写了test方法并且抛出了更多的异常，当一个程序在运行父类对象时能够正常捕获父类异常，但是当这个父类指向的是子类对象时，就会报错，因为子类的异常范围大于了父类，原来的捕获机制无法捕获。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-JQuery基础" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/03/28/JQuery%E5%9F%BA%E7%A1%80/"
+    >JQuery基础</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/03/28/JQuery%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2018-03-28T08:26:37.000Z" itemprop="datePublished">2018-03-28</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>先前自学了一段时间的JQuery，确实比原始的js简便不少。最近一直在学vue好久没用了，先记录下来，以免忘记。因为只是做个记录，所以内容就不展开了。</p>
+<h1 id="选择器"><a href="#选择器" class="headerlink" title="\选择器**"></a><strong><em>\</em>选择器**</strong></h1><p>（注：带冒号的都是修饰前面的标签）</p>
+<h2 id="基础选择器"><a href="#基础选择器" class="headerlink" title="\基础选择器**"></a><strong><em>\</em>基础选择器**</strong></h2><p>根据id选择，根据class选择，根据标签选择等等</p>
+<h2 id="层级选择器"><a href="#层级选择器" class="headerlink" title="\层级选择器**"></a><strong><em>\</em>层级选择器**</strong></h2><p><img src="file:////private/var/folders/q0/c8yjzcgj56lbtrncqgb_8nsm0000gn/T/com.kingsoft.wpsoffice.mac/wps-xingaolin/ksohtml/wpsFsiFrd.png" alt="img"> </p>
+<h2 id="内容选择器"><a href="#内容选择器" class="headerlink" title="\内容选择器**"></a><strong><em>\</em>内容选择器**</strong></h2><p>:has()选择器选择含有选择器所匹配的元素的父元素，返回集合元素<br>:empty选择器选择不包含子元素或文本的空元素，返回集合元素<br>:parent选择器选择含有子元素或文本的元素，返回集合元素<br>:contains(text)选择器选择含有文本内容为’text’的元素，返回集合元素</p>
+<h2 id="属性选择器"><a href="#属性选择器" class="headerlink" title="\属性选择器**"></a><strong><em>\</em>属性选择器**</strong></h2><p>$(“[attribute|=’value’]”)<br>*=包含；^=开头是；$=结尾是；</p>
+<h2 id="过滤选择器"><a href="#过滤选择器" class="headerlink" title="\过滤选择器**"></a><strong><em>\</em>过滤选择器**</strong></h2><p>:first 选取第一个元素,例$(“div:first”)<br>:last 选取最后一个元素 $(“div:last”)<br>:not() 去除所有给定选择器匹配的元素,例 $(“input:not(.myClass)”)<br>:even 选取索引数是偶数的元素 索引从0开始 $(“div:even”)<br>:odd 选取索引数是奇数的元素 索引从0开始 $(“div:odd”)<br>:eq(index)选取索引数等于index的元素 $(“div:eq(2)”)<br>:gt(index)选取索引数大于index的元素 $(“div:gt(2)”)<br>:lt(index)选取索引数小于index的元素 $(“div:lt(2)”)</p>
+<h2 id="子元素选择器"><a href="#子元素选择器" class="headerlink" title="\子元素选择器**"></a><strong><em>\</em>子元素选择器**</strong></h2><p>:nth-child(index/evenn/odd/equation)<br>解析：:eq(index)只匹配一个元素，而:nth-child将为每一个父元素匹配子元素，并且:nth-child(index)的index是从1开始的，而:eq(index)是从0开始的<br>:first-child 选取每个父元素的第一个子元素 集合元素<br>:last-child 选取每个父元素的最后一个子元素<br>:only-child 如果某个元素是他父元素中唯一的子元素，那么将会被匹配。</p>
+<h2 id="表单选择器"><a href="#表单选择器" class="headerlink" title="\表单选择器**"></a><strong><em>\</em>表单选择器**</strong></h2><p>:input 匹配所有form元素；</p>
+<h2 id="表单属性"><a href="#表单属性" class="headerlink" title="\表单属性**"></a><strong><em>\</em>表单属性**</strong></h2><p>:checked 选取所有被选中的元素（单选框，复选框<br>:selected 选取所有被选中的选项元素（下拉列表）</p>
+<h1 id="筛选"><a href="#筛选" class="headerlink" title="\筛选**"></a><strong><em>\</em>筛选**</strong></h1><h2 id="过滤"><a href="#过滤" class="headerlink" title="\过滤**"></a><strong><em>\</em>过滤**</strong></h2><p>eq();first();last();not();一眼就能看出什么意思。</p>
+<h2 id="串联"><a href="#串联" class="headerlink" title="\串联**"></a><strong><em>\</em>串联**</strong></h2><p>andself()选上原来的。<br>add()加上。</p>
+<h2 id="查找"><a href="#查找" class="headerlink" title="\查找**"></a><strong><em>\</em>查找**</strong></h2><p>chirldren();paretn();prev()前一个;prevall();nextall();find();siblings()前后所有弟兄；</p>
+<h1 id="属性"><a href="#属性" class="headerlink" title="\属性**"></a><strong><em>\</em>属性**</strong></h1><h2 id="style属性"><a href="#style属性" class="headerlink" title="\style属性**"></a><strong><em>\</em>style属性**</strong></h2><p>attr(“”,””)健值对的形式。</p>
+<h2 id="类"><a href="#类" class="headerlink" title="\类**"></a><strong><em>\</em>类**</strong></h2><p>addclass();removeclass();teggleclass();</p>
+<h2 id="文档操作"><a href="#文档操作" class="headerlink" title="\文档操作**"></a><strong><em>\</em>文档操作**</strong></h2><p>html();添加html文档</p>
+<h2 id="文体"><a href="#文体" class="headerlink" title="\文体**"></a><strong><em>\</em>文体**</strong></h2><p>text();</p>
+<h2 id="值"><a href="#值" class="headerlink" title="\值**"></a><strong><em>\</em>值**</strong></h2><p>val();</p>
+<h1 id="文档处理"><a href="#文档处理" class="headerlink" title="\文档处理**"></a><strong><em>\</em>文档处理**</strong></h1><h2 id="内部插入"><a href="#内部插入" class="headerlink" title="\内部插入**"></a><strong><em>\</em>内部插入**</strong></h2><p>append();appendTo();prepend();prependTo();</p>
+<h2 id="外部插入"><a href="#外部插入" class="headerlink" title="\外部插入**"></a><strong><em>\</em>外部插入**</strong></h2><p>after();before();insertAfter();insertBefore();</p>
+<h2 id="包围"><a href="#包围" class="headerlink" title="\包围**"></a><strong><em>\</em>包围**</strong></h2><p>wrap()外部添加;innerInner();wrapAll();</p>
+<h2 id="替换"><a href="#替换" class="headerlink" title="\替换**"></a><strong><em>\</em>替换**</strong></h2><p>replaceWidth();replaceAll();</p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="\删除**"></a><strong><em>\</em>删除**</strong></h2><p>empty()清空内容;remove()清空标签;detach()绑定的事件还保留;</p>
+<h2 id="复制"><a href="#复制" class="headerlink" title="\复制**"></a><strong><em>\</em>复制**</strong></h2><p>clone()只复制标签不复制事件。</p>
+<h1 id="css样式"><a href="#css样式" class="headerlink" title="\css样式**"></a><strong><em>\</em>css样式**</strong></h1><p>（注：可视区域宽高$(window），文档总高度$(document)）</p>
+<h2 id="css（）"><a href="#css（）" class="headerlink" title="\css（）**"></a><strong><em>\</em>css（）**</strong></h2><p>键值对形式</p>
+<h2 id="位置"><a href="#位置" class="headerlink" title="\位置**"></a><strong><em>\</em>位置**</strong></h2><p>offset()返回或者设置top和left;<br>position()负坐标为起始；</p>
+<h2 id="尺寸"><a href="#尺寸" class="headerlink" title="\尺寸**"></a><strong><em>\</em>尺寸**</strong></h2><p>width();height();<br>innerwidth();innerHeight();加padding<br>outerwidth();outerHeight();加边框</p>
+<p>注：<br>1.dom加载完，js最好放body后面。<br>2.资源加载完，$(window).load(function………………………………)<br>3.JQuery等dom加载完，$(function)</p>
 
       
       <!-- reward -->

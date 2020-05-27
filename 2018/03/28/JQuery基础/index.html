@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    test |  奥林博客
+    JQuery基础 |  奥林博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -42,7 +42,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-test" class="article article-type-post" itemscope
+  <article id="post-JQuery基础" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -50,7 +50,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  test
+  JQuery基础
 </h1>
  
 
@@ -59,8 +59,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/26/test/" class="article-date">
-  <time datetime="2020-05-26T07:41:02.000Z" itemprop="datePublished">2020-05-26</time>
+      <a href="/2018/03/28/JQuery%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2018-03-28T08:26:37.000Z" itemprop="datePublished">2018-03-28</time>
 </a>
       
       
@@ -70,7 +70,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">0</span>
+            <span class="post-count">759</span>
         </span>
     </span>
 
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -90,6 +90,8 @@
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -102,7 +104,35 @@
       
 
       
-      <p><img src="/2020/05/26/test/test_01.jpeg" alt="test_01"></p>
+      <p>先前自学了一段时间的JQuery，确实比原始的js简便不少。最近一直在学vue好久没用了，先记录下来，以免忘记。因为只是做个记录，所以内容就不展开了。</p>
+<h1 id="选择器"><a href="#选择器" class="headerlink" title="\选择器**"></a><strong><em>\</em>选择器**</strong></h1><p>（注：带冒号的都是修饰前面的标签）</p>
+<h2 id="基础选择器"><a href="#基础选择器" class="headerlink" title="\基础选择器**"></a><strong><em>\</em>基础选择器**</strong></h2><p>根据id选择，根据class选择，根据标签选择等等</p>
+<h2 id="层级选择器"><a href="#层级选择器" class="headerlink" title="\层级选择器**"></a><strong><em>\</em>层级选择器**</strong></h2><p><img src="file:////private/var/folders/q0/c8yjzcgj56lbtrncqgb_8nsm0000gn/T/com.kingsoft.wpsoffice.mac/wps-xingaolin/ksohtml/wpsFsiFrd.png" alt="img"> </p>
+<h2 id="内容选择器"><a href="#内容选择器" class="headerlink" title="\内容选择器**"></a><strong><em>\</em>内容选择器**</strong></h2><p>:has()选择器选择含有选择器所匹配的元素的父元素，返回集合元素<br>:empty选择器选择不包含子元素或文本的空元素，返回集合元素<br>:parent选择器选择含有子元素或文本的元素，返回集合元素<br>:contains(text)选择器选择含有文本内容为’text’的元素，返回集合元素</p>
+<h2 id="属性选择器"><a href="#属性选择器" class="headerlink" title="\属性选择器**"></a><strong><em>\</em>属性选择器**</strong></h2><p>$(“[attribute|=’value’]”)<br>*=包含；^=开头是；$=结尾是；</p>
+<h2 id="过滤选择器"><a href="#过滤选择器" class="headerlink" title="\过滤选择器**"></a><strong><em>\</em>过滤选择器**</strong></h2><p>:first 选取第一个元素,例$(“div:first”)<br>:last 选取最后一个元素 $(“div:last”)<br>:not() 去除所有给定选择器匹配的元素,例 $(“input:not(.myClass)”)<br>:even 选取索引数是偶数的元素 索引从0开始 $(“div:even”)<br>:odd 选取索引数是奇数的元素 索引从0开始 $(“div:odd”)<br>:eq(index)选取索引数等于index的元素 $(“div:eq(2)”)<br>:gt(index)选取索引数大于index的元素 $(“div:gt(2)”)<br>:lt(index)选取索引数小于index的元素 $(“div:lt(2)”)</p>
+<h2 id="子元素选择器"><a href="#子元素选择器" class="headerlink" title="\子元素选择器**"></a><strong><em>\</em>子元素选择器**</strong></h2><p>:nth-child(index/evenn/odd/equation)<br>解析：:eq(index)只匹配一个元素，而:nth-child将为每一个父元素匹配子元素，并且:nth-child(index)的index是从1开始的，而:eq(index)是从0开始的<br>:first-child 选取每个父元素的第一个子元素 集合元素<br>:last-child 选取每个父元素的最后一个子元素<br>:only-child 如果某个元素是他父元素中唯一的子元素，那么将会被匹配。</p>
+<h2 id="表单选择器"><a href="#表单选择器" class="headerlink" title="\表单选择器**"></a><strong><em>\</em>表单选择器**</strong></h2><p>:input 匹配所有form元素；</p>
+<h2 id="表单属性"><a href="#表单属性" class="headerlink" title="\表单属性**"></a><strong><em>\</em>表单属性**</strong></h2><p>:checked 选取所有被选中的元素（单选框，复选框<br>:selected 选取所有被选中的选项元素（下拉列表）</p>
+<h1 id="筛选"><a href="#筛选" class="headerlink" title="\筛选**"></a><strong><em>\</em>筛选**</strong></h1><h2 id="过滤"><a href="#过滤" class="headerlink" title="\过滤**"></a><strong><em>\</em>过滤**</strong></h2><p>eq();first();last();not();一眼就能看出什么意思。</p>
+<h2 id="串联"><a href="#串联" class="headerlink" title="\串联**"></a><strong><em>\</em>串联**</strong></h2><p>andself()选上原来的。<br>add()加上。</p>
+<h2 id="查找"><a href="#查找" class="headerlink" title="\查找**"></a><strong><em>\</em>查找**</strong></h2><p>chirldren();paretn();prev()前一个;prevall();nextall();find();siblings()前后所有弟兄；</p>
+<h1 id="属性"><a href="#属性" class="headerlink" title="\属性**"></a><strong><em>\</em>属性**</strong></h1><h2 id="style属性"><a href="#style属性" class="headerlink" title="\style属性**"></a><strong><em>\</em>style属性**</strong></h2><p>attr(“”,””)健值对的形式。</p>
+<h2 id="类"><a href="#类" class="headerlink" title="\类**"></a><strong><em>\</em>类**</strong></h2><p>addclass();removeclass();teggleclass();</p>
+<h2 id="文档操作"><a href="#文档操作" class="headerlink" title="\文档操作**"></a><strong><em>\</em>文档操作**</strong></h2><p>html();添加html文档</p>
+<h2 id="文体"><a href="#文体" class="headerlink" title="\文体**"></a><strong><em>\</em>文体**</strong></h2><p>text();</p>
+<h2 id="值"><a href="#值" class="headerlink" title="\值**"></a><strong><em>\</em>值**</strong></h2><p>val();</p>
+<h1 id="文档处理"><a href="#文档处理" class="headerlink" title="\文档处理**"></a><strong><em>\</em>文档处理**</strong></h1><h2 id="内部插入"><a href="#内部插入" class="headerlink" title="\内部插入**"></a><strong><em>\</em>内部插入**</strong></h2><p>append();appendTo();prepend();prependTo();</p>
+<h2 id="外部插入"><a href="#外部插入" class="headerlink" title="\外部插入**"></a><strong><em>\</em>外部插入**</strong></h2><p>after();before();insertAfter();insertBefore();</p>
+<h2 id="包围"><a href="#包围" class="headerlink" title="\包围**"></a><strong><em>\</em>包围**</strong></h2><p>wrap()外部添加;innerInner();wrapAll();</p>
+<h2 id="替换"><a href="#替换" class="headerlink" title="\替换**"></a><strong><em>\</em>替换**</strong></h2><p>replaceWidth();replaceAll();</p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="\删除**"></a><strong><em>\</em>删除**</strong></h2><p>empty()清空内容;remove()清空标签;detach()绑定的事件还保留;</p>
+<h2 id="复制"><a href="#复制" class="headerlink" title="\复制**"></a><strong><em>\</em>复制**</strong></h2><p>clone()只复制标签不复制事件。</p>
+<h1 id="css样式"><a href="#css样式" class="headerlink" title="\css样式**"></a><strong><em>\</em>css样式**</strong></h1><p>（注：可视区域宽高$(window），文档总高度$(document)）</p>
+<h2 id="css（）"><a href="#css（）" class="headerlink" title="\css（）**"></a><strong><em>\</em>css（）**</strong></h2><p>键值对形式</p>
+<h2 id="位置"><a href="#位置" class="headerlink" title="\位置**"></a><strong><em>\</em>位置**</strong></h2><p>offset()返回或者设置top和left;<br>position()负坐标为起始；</p>
+<h2 id="尺寸"><a href="#尺寸" class="headerlink" title="\尺寸**"></a><strong><em>\</em>尺寸**</strong></h2><p>width();height();<br>innerwidth();innerHeight();加padding<br>outerwidth();outerHeight();加边框</p>
+<p>注：<br>1.dom加载完，js最好放body后面。<br>2.资源加载完，$(window).load(function………………………………)<br>3.JQuery等dom加载完，$(function)</p>
 
       
       <!-- reward -->
@@ -171,7 +201,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/05/26/test/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2018/03/28/JQuery%E5%9F%BA%E7%A1%80/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -187,11 +217,15 @@
   
   <nav class="article-nav">
     
-    
-      <a href="/2020/05/26/hello-world/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Hello World</div>
+      <a href="/2018/04/23/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E6%96%B9%E6%B3%95%E6%97%B6%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%E4%B8%8D%E8%83%BD%E6%AF%94%E7%88%B6%E7%B1%BB%E8%8C%83%E5%9B%B4%E5%B9%BF/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            为什么子类重写父类方法时抛出的异常不能比父类范围广
+          
+        </div>
       </a>
+    
     
   </nav>
 
