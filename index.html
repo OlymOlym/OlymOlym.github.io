@@ -81,7 +81,7 @@
     
     
     
-    <article id="post-vue页面空白" class="article article-type-post" itemscope
+    <article id="post-决策树" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -89,8 +89,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/"
-    >vue页面空白</a> 
+  <a class="article-title" href="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/"
+    >决策树</a> 
 </h2>
  
 
@@ -99,8 +99,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/" class="article-date">
-  <time datetime="2020-05-26T08:27:59.000Z" itemprop="datePublished">2020-05-26</time>
+      <a href="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/" class="article-date">
+  <time datetime="2020-05-28T07:11:06.000Z" itemprop="datePublished">2020-05-28</time>
 </a>
       
       
@@ -117,158 +117,60 @@
       
 
       
-      <p>当我们将项目打包后，从dist文件夹里点开首页会发现页面是空白的。打包前运行得好好地，怎么在这里就变成空白的了呢？</p>
-<h2 id="找到"><a href="#找到" class="headerlink" title="\找到**"></a><strong><em>\</em>找到**</strong></h2><p> <img src="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%871.png" alt="图片1">  </p>
-<h2 id="然后"><a href="#然后" class="headerlink" title="\然后**"></a><strong><em>\</em>然后**</strong></h2><p><img src="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%872.png" alt="图片2"></p>
-<p>原因在资源配置上，把图中的assetsPublicPath改成’./‘就ok了。因为打包后你的资源访问不能再从根目录开始了，得改为当前目录。</p>
-<h1 id="css图片加载不出来"><a href="#css图片加载不出来" class="headerlink" title="\css图片加载不出来**"></a><strong><em>\</em>css图片加载不出来**</strong></h1><p>还得设置一下css的资源访问路径</p>
-<h2 id="打开"><a href="#打开" class="headerlink" title="\打开**"></a><strong><em>\</em>打开**</strong></h2><p> <img src="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%873.png" alt="图片3"></p>
-<h2 id="添加"><a href="#添加" class="headerlink" title="\添加**"></a><strong><em>\</em>添加**</strong></h2><p><img src="/2020/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%874.png" alt="图片4"></p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-mysql数据库空闲8小时自动断开连接" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/"
-    >mysql数据库空闲8小时自动断开连接</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/" class="article-date">
-  <time datetime="2020-05-26T08:24:47.000Z" itemprop="datePublished">2020-05-26</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>项目开发时遇到了一个坑，开发时数据获取正常，一天过后再用就发现获取不到数据了，在网上查阅资料发现这是mysql数据库的一个机制。MySQL服务器默认的“wait_timeout”是28800秒即8小时，意味着如果一个连接的空闲时间超过8个小时，MySQL将自动断开该连接。所以数据就访问不到了。</p>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="\解决方法**"></a><strong><em>\</em>解决方法**</strong></h1><p>网上有好几种解决方法，但我试了试只有修改my.ini文件这种方法有效。其他的避免8小时空闲的也不是什么好方法，定期发送请求感觉治标不治本。<br>先找到my.ini文件，这个文件在mysql根目录里，如果没有，看看是不是系统给隐藏了。打开以后，在最后两行添加<br>t_timeout=31536000<br>interactive_timeout=31536000<br>就哦了。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-hello-world" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/26/hello-world/"
-    >Hello World</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/05/26/hello-world/" class="article-date">
-  <time datetime="2020-05-26T03:14:58.538Z" itemprop="datePublished">2020-05-26</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+      <p>决策树可以解释成一种特殊形式的规则集，特征是规则的层次组织关系。只能对离散型变量进行学习。决策树是一种贪心算法。从分类原理和数据训练来看，逻辑回归、贝叶斯分类属于利用统计学原理对数据集进行分类（基于回归分析、概率论等），决策树分类采用归纳学习的方法（通过信息论的相关理论对数据差异进行归纳，建立类别标准）。</p>
+<p>关键：如何选择合适的分裂属性进行分裂，以及如何制定合适的分裂谓词产生相应的分支。（各种决策树主要区别也在于此）</p>
+<p>衡量标准：信息熵，通过引入信息增益概念，来表示划分数据集前后信息发生的变化</p>
+<p>约束：任由决策树自然生长容易过拟合，增加学习错误率。简化决策树的方法有：控制树的规模、修改测试空间、修改测试属性、数据库约束、改变数据结构等。</p>
+<p>控制数的规模：就是控制树的分支数量，一般采用预剪枝算法、后剪枝算法以及增量树方法来实现。预剪枝就是停止树的扩张，何时停止是研究的主要内容。后剪枝算法先生成一棵未剪枝的决策树，再进行可能的修建，把它在作为输入，再利用修剪集进行选择，输出最好的规则。</p>
+<p>缺点：</p>
+<p>1.连续性数据难以处理</p>
+<p>2若数据存在事件顺序，需要预处理</p>
+<p>3.特征很多的数据，由于信息量太大，反而容易出错</p>
+<p>4.分类只是根据一个字段.</p>
+<p>主要生成算法：ID3、C4.5、CART等（ID3、C4.5仅用于分类，CART可以用于分类和回归）。</p>
+<p><em>ID3算法</em></p>
+<p>采用信息增益作为属性选择标准，本质就是使用这个该属性分割会导致系统熵降低，所以信息增益越大，不确定性减少越多。</p>
+<p><em>C4.5算法</em></p>
+<p>C4.5算法是对ID3算法的延伸和优化，ID3采用信息增益选择分裂属性，如果存在一对一的标志属性，容易过拟合，产生“归纳偏置”。</p>
+<p>而C4.5采用信息增益率来选择分裂属性：</p>
+<p>​    信息增益率为=信息增益/分裂信息</p>
+<p>可以看出，相当于给信息增益加了一个惩罚项，避免过大或者过小的极端情况。</p>
+<p>ID3无法处理连续型数据，而C4.5可以通过对某个连续性属性进行处理：</p>
+<p>\1. 属性的取值从小到大排序</p>
+<p>\2. 两个属性取值之间的重点作为可能的分裂点，将该节点的数据集分成两份，计算每个可能的分裂点的信息增益</p>
+<p>\3. 计算每一种分割对应的信息增益率，选择信息增益率最大的进行分割。</p>
+<p><em>CART算法</em></p>
+<p>分类回归树CART是一种典型的二叉决策树（对特征属性进行二元分裂），主要用来研究分类问题，可以同时处理连续变量和分类变量。根据目标变量不同，可以分为分类决策树和回归决策树。</p>
+<p>首要目标就是构造一个准确的分类模型进行预测，即研究引起分类现象发生的变量及变量之间的作用，通过建立决策树和决策规则来对未知类型的变量进行类别预测。</p>
+<p>采用Gini系数最小化准则来进行特征选择，生成二叉树。</p>
+<p>预剪枝</p>
+<p>决策树生成之前进行剪枝，由于缺乏对整个分类过程、分类规则的全面了解，他是通过提前停止树的构造实现的。例如，给定节点不在分裂；指定节点熵小于某个值；此节点实例个数小于某一个阈值也可以停止树生长。</p>
+<p>后剪枝</p>
+<p>允许决策树过拟合训练数据，然后自底向上或自顶向下对非叶子节点进行考察，若该节点对应的子树换为叶子节点能够带来泛化性能的提升，则把该子树替换为叶子节点。常见方法有：错误率降低剪枝（REP）和悲观错误剪枝。</p>
+<p><em>REP方法：</em></p>
+<p>​    数据分为验证集和训练集。从树最底部开始，自下而上，从树中每一个非叶子节点开始，进行一次剪枝，用新生成的树去训练验证集，如果与剪枝之前分类偏差相差不大或相等，并且没有相同性质的新子树生成，则剪枝成功。随着剪枝的进行，直到某一次修剪降低了决策树精度，该剪枝过程终止。</p>
+<p>​    当训练数据集过少时，训练集和验证集划分不同，容易导致部分数据误删，通常不考虑REP算法。</p>
+<p><em>后剪枝之悲观错误剪枝方法</em></p>
+<p>悲观错误剪枝方法主要关注错误率的降低，其“悲观”之处在于，它假定每个叶子节点都自动对实例的某个部分进行错误的分类，通过引入统计学上的修正方法来判断剪枝后是否降低了错误率。</p>
+<p>具体方法：</p>
+<p>（1）某一叶子节点实例个数nt，其中错误分类的有et个，我们定义训练数据集误差率为：r(t)=e(t)/n(t)</p>
+<p>（2）将错误分布看做二项分布，由于二项分布向正态逼近需要进行连续性修正[1]，在et加上1/2，因此将误差率的公式修改为：</p>
+<p>r(t)=[e(t) + 1/2]/n(t)</p>
+<p>（3）同样，对于非叶子节点s而言，对应的子树Tt的叶子节点的个数为ls，则分类误差为：</p>
+<p><img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/a6.png" alt="img"></p>
+<p>为了简单，我们用误差总数来替代误差率的表示：</p>
+<p>​                    e(t) = e(t) + 1/2</p>
+<p>那么，对于子树Tt，它的分类误差总数为：</p>
+<p>​                    <img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/a7.png" alt="a7"></p>
+<p>（4）一般来说，剪枝的条件是，剪枝后子树Tt的分类误差要小于原节点t的，剪枝后的误差总是要小于剪枝之前的误差总数，即<img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/xingaolin/blog/source/_posts/%E5%86%B3%E7%AD%96%E6%A0%91/a4.png" alt="img">。但由于连续性修正的问题，有时候会造成叶节点实例个数变大的问题，于是进行修正：</p>
+<p><img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/a3.png" alt="img"> </p>
+<p>由于误差近似看成是二项式分布，根据u = np, σ2=npq可以得到:</p>
+<p><img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/a2.png" alt="img"> </p>
+<p>根据置信区间，我们设定一定的显著性因子，我们可以估算出误判次数的上下界。于是当<img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/a1.png" alt="img">成立，则子树Tt应被剪掉，由对应的叶子节点替代。对所有非叶子节点进行计算测试，来判断是否需要被剪掉。</p>
+<p>注：</p>
+<p>[1] 二项分布的正态逼近</p>
+<p>在数据分析领域，有一个普遍能够接受的最低限度，那就是当np和nq两者的计算结果都大于或等于5时，通过二项分布概率质量函数计算得到的概率值与正态分布概率密度函数积分得到的概率值的误差就小到能够被接受。二项概率分布p(y)逼近于正态分布。如下图。当然，误判次数也可以看成是正态分布。</p>
+<p><img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/%E5%9B%BE%E7%89%875.png" alt="img"></p>
 
       
       <!-- reward -->
@@ -403,6 +305,145 @@
       
       <h2 id="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"><a href="#页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。" class="headerlink" title="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"></a><em>页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。</em></h2><p>原来函数内的this和函数外的this不是一回事，咱们可以打印一下<br>打印的结果<br>由此可知，在该函数内直接用this可以获取此marker内存储的信息，如我存的address，cost等等。</p>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a><em>解决方法</em></h1><p>若想要在该方法里使用vue，则可以在函数外设置一个变量指向this（即该vue对象），在方法体内调用该变量即可。主要是避免this的重合。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-vue页面空白" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/"
+    >vue页面空白</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/" class="article-date">
+  <time datetime="2018-05-26T08:27:59.000Z" itemprop="datePublished">2018-05-26</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>当我们将项目打包后，从dist文件夹里点开首页会发现页面是空白的。打包前运行得好好地，怎么在这里就变成空白的了呢？</p>
+<h2 id="找到"><a href="#找到" class="headerlink" title="\找到**"></a><strong><em>\</em>找到**</strong></h2><p> <img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%871.png" alt="图片1">  </p>
+<h2 id="然后"><a href="#然后" class="headerlink" title="\然后**"></a><strong><em>\</em>然后**</strong></h2><p><img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%872.png" alt="图片2"></p>
+<p>原因在资源配置上，把图中的assetsPublicPath改成’./‘就ok了。因为打包后你的资源访问不能再从根目录开始了，得改为当前目录。</p>
+<h1 id="css图片加载不出来"><a href="#css图片加载不出来" class="headerlink" title="\css图片加载不出来**"></a><strong><em>\</em>css图片加载不出来**</strong></h1><p>还得设置一下css的资源访问路径</p>
+<h2 id="打开"><a href="#打开" class="headerlink" title="\打开**"></a><strong><em>\</em>打开**</strong></h2><p> <img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%873.png" alt="图片3"></p>
+<h2 id="添加"><a href="#添加" class="headerlink" title="\添加**"></a><strong><em>\</em>添加**</strong></h2><p><img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%874.png" alt="图片4"></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-mysql数据库空闲8小时自动断开连接" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/"
+    >mysql数据库空闲8小时自动断开连接</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/" class="article-date">
+  <time datetime="2018-05-26T08:24:47.000Z" itemprop="datePublished">2018-05-26</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>项目开发时遇到了一个坑，开发时数据获取正常，一天过后再用就发现获取不到数据了，在网上查阅资料发现这是mysql数据库的一个机制。MySQL服务器默认的“wait_timeout”是28800秒即8小时，意味着如果一个连接的空闲时间超过8个小时，MySQL将自动断开该连接。所以数据就访问不到了。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="\解决方法**"></a><strong><em>\</em>解决方法**</strong></h1><p>网上有好几种解决方法，但我试了试只有修改my.ini文件这种方法有效。其他的避免8小时空闲的也不是什么好方法，定期发送请求感觉治标不治本。<br>先找到my.ini文件，这个文件在mysql根目录里，如果没有，看看是不是系统给隐藏了。打开以后，在最后两行添加<br>t_timeout=31536000<br>interactive_timeout=31536000<br>就哦了。</p>
 
       
       <!-- reward -->

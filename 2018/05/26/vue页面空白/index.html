@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    vue中this的作用域 |  奥林博客
+    vue页面空白 |  奥林博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -42,7 +42,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-vue中this的作用域" class="article article-type-post" itemscope
+  <article id="post-vue页面空白" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -50,7 +50,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  vue中this的作用域
+  vue页面空白
 </h1>
  
 
@@ -59,8 +59,8 @@
 
     
     <div class="article-meta">
-      <a href="/2018/06/07/vue%E4%B8%ADthis%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
-  <time datetime="2018-06-07T07:29:54.000Z" itemprop="datePublished">2018-06-07</time>
+      <a href="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/" class="article-date">
+  <time datetime="2018-05-26T08:27:59.000Z" itemprop="datePublished">2018-05-26</time>
 </a>
       
       
@@ -70,7 +70,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">148</span>
+            <span class="post-count">126</span>
         </span>
     </span>
 
@@ -104,8 +104,13 @@
       
 
       
-      <h2 id="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"><a href="#页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。" class="headerlink" title="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"></a><em>页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。</em></h2><p>原来函数内的this和函数外的this不是一回事，咱们可以打印一下<br>打印的结果<br>由此可知，在该函数内直接用this可以获取此marker内存储的信息，如我存的address，cost等等。</p>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a><em>解决方法</em></h1><p>若想要在该方法里使用vue，则可以在函数外设置一个变量指向this（即该vue对象），在方法体内调用该变量即可。主要是避免this的重合。</p>
+      <p>当我们将项目打包后，从dist文件夹里点开首页会发现页面是空白的。打包前运行得好好地，怎么在这里就变成空白的了呢？</p>
+<h2 id="找到"><a href="#找到" class="headerlink" title="\找到**"></a><strong><em>\</em>找到**</strong></h2><p> <img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%871.png" alt="图片1">  </p>
+<h2 id="然后"><a href="#然后" class="headerlink" title="\然后**"></a><strong><em>\</em>然后**</strong></h2><p><img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%872.png" alt="图片2"></p>
+<p>原因在资源配置上，把图中的assetsPublicPath改成’./‘就ok了。因为打包后你的资源访问不能再从根目录开始了，得改为当前目录。</p>
+<h1 id="css图片加载不出来"><a href="#css图片加载不出来" class="headerlink" title="\css图片加载不出来**"></a><strong><em>\</em>css图片加载不出来**</strong></h1><p>还得设置一下css的资源访问路径</p>
+<h2 id="打开"><a href="#打开" class="headerlink" title="\打开**"></a><strong><em>\</em>打开**</strong></h2><p> <img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%873.png" alt="图片3"></p>
+<h2 id="添加"><a href="#添加" class="headerlink" title="\添加**"></a><strong><em>\</em>添加**</strong></h2><p><img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%874.png" alt="图片4"></p>
 
       
       <!-- reward -->
@@ -174,7 +179,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2018/06/07/vue%E4%B8%ADthis%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -190,19 +195,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2018/06/19/java%E5%BC%82%E5%B8%B8/" class="article-nav-link">
+      <a href="/2018/06/07/vue%E4%B8%ADthis%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            java异常
+            vue中this的作用域
           
         </div>
       </a>
     
     
-      <a href="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/" class="article-nav-link">
+      <a href="/2018/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">vue页面空白</div>
+        <div class="article-nav-title">mysql数据库空闲8小时自动断开连接</div>
       </a>
     
   </nav>
