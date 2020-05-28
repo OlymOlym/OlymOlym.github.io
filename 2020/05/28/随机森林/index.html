@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Archives: 2020/5 |  奥林博客
+    随机森林 |  奥林博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -42,71 +42,249 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article class="articles">
+  <article id="post-随机森林" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">2020/5</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2020" class="archive-year">2020</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" class="archive-article-date">
-  <time datetime="2020-05-28T07:50:46.000Z" itemprop="datePublished">05/28</time>
-</a>
+    <header class="article-header">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/"
-    >随机森林</a> 
-</h2>
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  随机森林
+</h1>
  
 
     </header>
     
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/" class="archive-article-date">
-  <time datetime="2020-05-28T07:11:06.000Z" itemprop="datePublished">05/28</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/"
-    >决策树</a> 
-</h2>
- 
 
-    </header>
     
-    
-  </div>
-</article>
+    <div class="article-meta">
+      <a href="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" class="article-date">
+  <time datetime="2020-05-28T07:50:46.000Z" itemprop="datePublished">2020-05-28</time>
+</a>
       
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">3 min</span>
+        </span>
+    </span>
+</div>
+
       
     </div>
+    
+
+    
+    
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>目前的集成学习算法主要有两大派系，一个是boosting算法为代表的强依赖关系个体学习器，必须串行生成的序列化方法；另一个是以Bagging和“随机森林”为代表的算法，其个体学习器间不存在强依赖关系，并能够同事生成的并行化方法。</p>
+<p>​    结合策略有：平均法、投票法和学习法等。平均法常用语数值类型的回归预测，对于若干个弱分类器进行算术平均或加权平均得到最终的预测输出。投票法是主要针对分类问题的预测，它通过对不同弱分类器结果进行投票，少数服从多数。学习法则是对弱分类器结果进行处理再加上一层学习器，重新训练一个分类器来得到最终结果。</p>
+<p>Boosting算法</p>
+<p>​    主要专注于提高弱分类算法的精确度方面。</p>
+<p>​    方法：将样本集分割成若干个样本子集，每一个样本集赋予相同权重，给基分类器进行分类，分类错误的分类器的样本集提高权重（实际是正确的降低权重），然后训练第二个训练集，以此类推，产生n个分类器，最后Boosting框架算法将这n个基分类器进行加权合并，产生一个最后的结果分类器。Adaboost就是Boosting中较为代表的算法。</p>
+<p>Bagging方法</p>
+<p>​    随机有放回得选择训练数据，在此基础上构造分类器，然后组合到一起。每一次随机采样生成一个采样集，也能独立训练一个弱分类器，如此进行n次，就得到n个弱分类器，再进行组合成最终的强分类器。</p>
+<p>随机森林</p>
+<p>随机森林是以决策树这种弱分类器为基础，进行进阶的一种Bagging集成学习算法。在Bagging随机采样的基础上，又加上了特征的随机选择。</p>
+<p>步骤：</p>
+<p>（1） 重抽样生成k个样本子集，理论上覆盖2/3的数据，未包含的数据作为测试数据。</p>
+<p>（2） 利用k个样本子集生成k个决策树，每棵树从M个特征中随机选择m个特征（实际项目中通常采用m^1/2)，充分生长不做剪枝。</p>
+<p>（3） 综合每棵树的测试结果按照一定的投票机制确定最终结果。</p>
+<p>投票机制有很多，除了常见的少数服从多数还有一票否决法，阈值法与贝叶斯投票法。</p>
+<p>一票否决法就是当且仅当所有决策树都对此实例进行如此分类才可以，否则拒绝。</p>
+<p>阈值法则是统计实例分为正样本和负样本的数目，如果达到事先定好的阈值则划分到该类上。</p>
+<p>贝叶斯投票机制[1]就是根据不同决策树非分类效果赋予不同的权重，最后进行加权计算。</p>
+<p>优点：随机森林算法很好的利用了随机性，最小化了各树之间的相关性，提高了分类性能。同时，森林可以实现并行化，分类速度非常快。</p>
+<p>极端随机森林</p>
+<p>区别：</p>
+<p>（一） 随机森林采用随机生成的样本子集来训练决策树，而极端随机森林采用所有的训练样本得到每一棵决策树。</p>
+<p>（二） 随机森林在随机子集中得到最佳分裂属性，而计算随机森林采用完全随机得到分裂值，再选择分类值较大的划分。</p>
+<p>注释：</p>
+<p>[1]贝叶斯平均法　</p>
+<p><img src="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/wpsfowMKW.png" alt="img"> </p>
+<p>C是补偿评价数（平均评价数），M是补偿评分（平均评分），n是评价数量，s是已计算评分。通常C、M应为常量，使最终评分只与评价数量和已计算评分相关。</p>
+<p>在这个公式中，M（总体平均分）是”先验概率”，每一次新的投票都是一个调整因子，使总体平均分不断向该项目的真实投票结果靠近。投票人数越多，该项目的”贝叶斯平均”就越接近算术平均，对排名的影响就越小。</p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        Donate
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>Copyright： </strong>
+              Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+
+    </footer>
+
   </div>
+
   
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">决策树</div>
+      </a>
+    
+  </nav>
+
+
   
 
   
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '',
+        app_key: '',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+  
+  
+
+</article>
 </section>
       <footer class="footer">
   <div class="outer">
@@ -262,6 +440,23 @@
 </script>
 
 <!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">

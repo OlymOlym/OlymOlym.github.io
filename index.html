@@ -81,6 +81,98 @@
     
     
     
+    <article id="post-随机森林" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/"
+    >随机森林</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" class="article-date">
+  <time datetime="2020-05-28T07:50:46.000Z" itemprop="datePublished">2020-05-28</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>目前的集成学习算法主要有两大派系，一个是boosting算法为代表的强依赖关系个体学习器，必须串行生成的序列化方法；另一个是以Bagging和“随机森林”为代表的算法，其个体学习器间不存在强依赖关系，并能够同事生成的并行化方法。</p>
+<p>​    结合策略有：平均法、投票法和学习法等。平均法常用语数值类型的回归预测，对于若干个弱分类器进行算术平均或加权平均得到最终的预测输出。投票法是主要针对分类问题的预测，它通过对不同弱分类器结果进行投票，少数服从多数。学习法则是对弱分类器结果进行处理再加上一层学习器，重新训练一个分类器来得到最终结果。</p>
+<p>Boosting算法</p>
+<p>​    主要专注于提高弱分类算法的精确度方面。</p>
+<p>​    方法：将样本集分割成若干个样本子集，每一个样本集赋予相同权重，给基分类器进行分类，分类错误的分类器的样本集提高权重（实际是正确的降低权重），然后训练第二个训练集，以此类推，产生n个分类器，最后Boosting框架算法将这n个基分类器进行加权合并，产生一个最后的结果分类器。Adaboost就是Boosting中较为代表的算法。</p>
+<p>Bagging方法</p>
+<p>​    随机有放回得选择训练数据，在此基础上构造分类器，然后组合到一起。每一次随机采样生成一个采样集，也能独立训练一个弱分类器，如此进行n次，就得到n个弱分类器，再进行组合成最终的强分类器。</p>
+<p>随机森林</p>
+<p>随机森林是以决策树这种弱分类器为基础，进行进阶的一种Bagging集成学习算法。在Bagging随机采样的基础上，又加上了特征的随机选择。</p>
+<p>步骤：</p>
+<p>（1） 重抽样生成k个样本子集，理论上覆盖2/3的数据，未包含的数据作为测试数据。</p>
+<p>（2） 利用k个样本子集生成k个决策树，每棵树从M个特征中随机选择m个特征（实际项目中通常采用m^1/2)，充分生长不做剪枝。</p>
+<p>（3） 综合每棵树的测试结果按照一定的投票机制确定最终结果。</p>
+<p>投票机制有很多，除了常见的少数服从多数还有一票否决法，阈值法与贝叶斯投票法。</p>
+<p>一票否决法就是当且仅当所有决策树都对此实例进行如此分类才可以，否则拒绝。</p>
+<p>阈值法则是统计实例分为正样本和负样本的数目，如果达到事先定好的阈值则划分到该类上。</p>
+<p>贝叶斯投票机制[1]就是根据不同决策树非分类效果赋予不同的权重，最后进行加权计算。</p>
+<p>优点：随机森林算法很好的利用了随机性，最小化了各树之间的相关性，提高了分类性能。同时，森林可以实现并行化，分类速度非常快。</p>
+<p>极端随机森林</p>
+<p>区别：</p>
+<p>（一） 随机森林采用随机生成的样本子集来训练决策树，而极端随机森林采用所有的训练样本得到每一棵决策树。</p>
+<p>（二） 随机森林在随机子集中得到最佳分裂属性，而计算随机森林采用完全随机得到分裂值，再选择分类值较大的划分。</p>
+<p>注释：</p>
+<p>[1]贝叶斯平均法　</p>
+<p><img src="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/wpsfowMKW.png" alt="img"> </p>
+<p>C是补偿评价数（平均评价数），M是补偿评分（平均评分），n是评价数量，s是已计算评分。通常C、M应为常量，使最终评分只与评价数量和已计算评分相关。</p>
+<p>在这个公式中，M（总体平均分）是”先验概率”，每一次新的投票都是一个调整因子，使总体平均分不断向该项目的真实投票结果靠近。投票人数越多，该项目的”贝叶斯平均”就越接近算术平均，对排名的影响就越小。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-决策树" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -162,7 +254,7 @@
 <p>​                    e(t) = e(t) + 1/2</p>
 <p>那么，对于子树Tt，它的分类误差总数为：</p>
 <p>​                    <img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/a7.png" alt="a7"></p>
-<p>（4）一般来说，剪枝的条件是，剪枝后子树Tt的分类误差要小于原节点t的，剪枝后的误差总是要小于剪枝之前的误差总数，即<img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/xingaolin/blog/source/_posts/%E5%86%B3%E7%AD%96%E6%A0%91/a4.png" alt="img">。但由于连续性修正的问题，有时候会造成叶节点实例个数变大的问题，于是进行修正：</p>
+<p>（4）一般来说，剪枝的条件是，剪枝后子树Tt的分类误差要小于原节点t的，剪枝后的误差总是要小于剪枝之前的误差总数，即<img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/a4.png" alt="img">。但由于连续性修正的问题，有时候会造成叶节点实例个数变大的问题，于是进行修正：</p>
 <p><img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/a3.png" alt="img"> </p>
 <p>由于误差近似看成是二项式分布，根据u = np, σ2=npq可以得到:</p>
 <p><img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/a2.png" alt="img"> </p>
@@ -171,6 +263,333 @@
 <p>[1] 二项分布的正态逼近</p>
 <p>在数据分析领域，有一个普遍能够接受的最低限度，那就是当np和nq两者的计算结果都大于或等于5时，通过二项分布概率质量函数计算得到的概率值与正态分布概率密度函数积分得到的概率值的误差就小到能够被接受。二项概率分布p(y)逼近于正态分布。如下图。当然，误判次数也可以看成是正态分布。</p>
 <p><img src="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/%E5%9B%BE%E7%89%875.png" alt="img"></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-贝叶斯分类" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/10/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/"
+    >贝叶斯分类</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/10/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/" class="article-date">
+  <time datetime="2020-02-10T07:31:36.000Z" itemprop="datePublished">2020-02-10</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>贝叶斯分类以贝叶斯定理为基础的一类分类算法的总称。朴素贝叶斯分类常常被称为生成式分类器，它是基于事物的概率特征来实现分类的。而逻辑回归常常被称为判别式分类器，其中的概率只是一种分类的判别方式。</p>
+<p>贝叶斯定理</p>
+<p>​    可以粗略地简述成：若要预见未来，必须回首过往。</p>
+<p>​    也就是说未来某件事发生的概率可以通过计算他过去发生的频率来估计。</p>
+<p>​    具体参考贝叶斯定理文章。</p>
+<p>原理</p>
+<p>​    贝叶斯分类模型是一种典型的基于统计方法的分类模型。贝叶斯决策系统把分类问题看做一种不确定性决策问题。其决策依据是分类错误率最小或者损失风险最小。他通过训练集训练归纳出分类器，并利用分类器对没有分类的数据进行分类。其中具有代表性的有朴素贝叶斯分类器、贝叶斯网络分类器和树扩展的朴素贝叶斯分类模型TAN分类器等。</p>
+<p>特点</p>
+<p>（一） 贝叶斯分类是计算出属于某一类的概率，具有最大概率的类便是该对象所属的类。</p>
+<p>（二） 贝叶斯分类中所有的属性都潜在地起作用。</p>
+<p>（三） 贝叶斯分类对象的属性可以是离散的、连续的也可以是混合的。</p>
+<p>朴素贝叶斯分类</p>
+<p>在众多分类其中朴素贝叶斯具有简单的结构和良好的性能。它是基于贝叶斯定理和特征条件独立假设的分类方法。它主要进行了两方面的假设，第一是特征出现的概率是相同的；第二是每个特征同等重要。他之所以朴素是因为它的假设条件以及原理都很朴素。</p>
+<p>原理</p>
+<p>实际就是求Map最大后验概率。</p>
+<p>根据贝叶斯定理：</p>
+<p><img src="/2020/02/10/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/a3.png" alt="img"> </p>
+<p><img src="/2020/02/10/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/a1.png" alt="img"></p>
+<p><img src="/2020/02/10/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/a4.png" alt="img"> </p>
+<p>参数估计</p>
+<p>​    若各个属性是离散的，则可以通过比例得到；若各个属性是连续的，计算公式会复杂很多，可以利用高斯分布进行离散化，这就是高斯朴素贝叶斯分类算法。</p>
+<p>多项式朴素贝叶斯</p>
+<p>适用于特征属性为离散值时。</p>
+<p><img src="/2020/02/10/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/a2.png" alt="img"></p>
+<p>贝叶斯网络</p>
+<p>概率图模型分为：有向无环图（贝叶斯网络）、无向图（马尔科夫预测）</p>
+<p>朴素贝叶斯算法是假设各个属性都是独立的，当各个属性都不独立时，那就需要采用贝叶斯网络了。</p>
+<p>贝叶斯网络结构形式</p>
+<p>（一）tail-to-tail</p>
+<p><img src="/2020/02/10/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/b1.png" alt="img"> </p>
+<p>1.在c未知的时候，有：P(a,b,c)=P(c)P(a|c)P(b|c)，此时，没法得出P(a,b) = P(a)P(b)，即c未知时，a、b不独立。</p>
+<p>2.在c已知的时候，有：P(a,b|c)=P(a,b,c)/P(c)，然后将P(a,b,c)=P(c)P(a|c)P(b|c)带入式子中，得到：P(a,b|c)=P(a,b,c)/P(c) = P(c)P(a|c)P(b|c) / P(c) = P(a|c)*P(b|c)，即c已知时，a、b独立。</p>
+<p>（二）head-to-tail</p>
+<p><img src="/2020/02/10/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/b2.png" alt="img"> </p>
+<p>c未知时，有：P(a,b,c)=P(a)P(c|a)P(b|c)，但无法推出P(a,b) = P(a)P(b)，即c未知时，a、b不独立。</p>
+<p>c已知时，有：P(a,b|c)=P(a,b,c)/P(c)，可化简得到：P(a,b|c)= P(a|c)*P(b|c) 即c已知时，a、b独立。</p>
+<p>节点增多形成一条链式网络，称为马尔科夫模型：，</p>
+<p><img src="/2020/02/10/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/%E5%B9%B6.png" alt="img"> </p>
+<p>当前状态只与前一项有关，与其他项都无关。条件概率是K*K矩阵。</p>
+<p>（三）head-to-head</p>
+<p><img src="/2020/02/10/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/b3.png" alt="img"> </p>
+<p>依上图，所以有：P(a,b,c) = P(a)P(b)P(c|a,b)成立，即在c未知的条件下，a、b被阻断(blocked)，是独立的，称之为head-to-head条件独立。</p>
+<p>三个部分形成的集合仍然成立。</p>
+<p>于是我们就可以根据已知的先验概率，将条件概率转化为条件独立，进行计算。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-拉格朗日对偶" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/22/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6/"
+    >拉格朗日对偶</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/22/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6/" class="article-date">
+  <time datetime="2020-01-22T07:30:06.000Z" itemprop="datePublished">2020-01-22</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>在学习线性可分支持向量机的最优化问题过程中，需要对其求解，此时就会用到拉格朗日对偶性的相关知识。其核心思想为，应用拉格朗日对偶性，将原始的求解最优化问题，转化为求解对偶问题的最优解，这就是线性可分支持向量机的对偶算法。</p>
+<p>首先我们需要知道为什么要这样做？</p>
+<p>原始问题是一个带有约束的优化问题，如果不带约束，因为原函数连续可微，我们可以直接通过求导，然后令其为零，直接就可以求出最优解。可问题是带有约束的，我们知道如果不带约束会简单很多，如何把约束去掉呢？拉格朗日函数可以做到。</p>
+<p>任何带约束的优化问题总是可以写出拉格朗日函数来。引入拉格朗日乘子，原函数可以转化成广义的拉格朗日函数一般式子。现在问题是，该怎么把这两个式子联系起来。我们知道，一般约束可以概括成两种，一种为不等式，一种为恒等式，而且通过转化都可以写成一边为零的形式。显然由拉格朗日一般式可以看出，对于任意两种拉格朗日乘子，取到某值使得拉格朗日式子最大时，此时拉格朗日函数等于原函数。当拉格朗日乘子取得最大值时，函数变成x的函数，依照原问题，我们需要取最小值。</p>
+<p>此时求解会很麻烦，我们需要转化一下，将原始问题转化为对应的对偶问题。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-熵笔记" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/11/28/%E7%86%B5%E7%AC%94%E8%AE%B0/"
+    >熵笔记</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/11/28/%E7%86%B5%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2019-11-28T07:45:14.000Z" itemprop="datePublished">2019-11-28</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>熵笔记</p>
+<p>在了解熵的概念之前，需要先知道信息的概念。一个事件发生是有概率的，而这个事件发生的概率越大，它所蕴含的混乱度就越小，就越趋于稳定，也就是蕴含的信息量最小，相反，这个事件发生的概率越小，他就越混乱，不确定性就越多，所蕴含的信息量就越大。</p>
+<p>在信息论和概率统计中，熵是表示随机变量不确定性的度量。也可以理解为蕴含信息量的多少，即信息的期望值。我比较倾向于以信息的概念来理解熵。我们知道概率是在0到1之间的数，概率越大越接近1，它所蕴含的信息量就是越小，概率越小越靠近0，它所蕴含的信息量就越巨大。这时候我们能想到信息函数是一个对数函数：</p>
+<p>L(Xi)=-log2P(Xi)</p>
+<p>P(Xi)表示第i个分类的概率函数，Xi表示第i个分类。</p>
+<p>而熵定义为信息量的期望值，于是对此式求期望得：</p>
+<p>​         <img src="/2019/11/28/%E7%86%B5%E7%AC%94%E8%AE%B0/a1.png" alt="img"></p>
+<p>在随机变量X给定条件下随机变量Y的不确定性，实质上是H(X,Y)-H(X),X和Y都发生的信息量减去X确定发生的信息量，得到的就是在X确定发生情况下Y发生的信息量。容易混淆的是，此时随机变量Y的条件熵不是X给定条件下的信息熵，而是还要对其求期望。</p>
+<p>​     <img src="/2019/11/28/%E7%86%B5%E7%AC%94%E8%AE%B0/a2.png" alt="img"></p>
+<p>信息增益表示得知特征X的信息而使得类Y的信息不确定性减少的程度。一般地，熵H(Y)与条件熵H(Y|X)之差成为互信息。而两个随便变量X和Y互信息的定义则为X，Y的联合分布和独立分布乘积的相对熵。两个随机变量函数越接近，即独立性越小，则值越大，相反，值越小说明独立性越大，等于0时，两随机变量分布函数独立分布。在决策树学习中，我们认为信息增益等价于互信息。</p>
+<p>根据之前所学条件熵信息熵的定义，结合互信息定义，可以推导出：</p>
+<p>I(X,Y)=H(X)+H(Y)-H(X,Y)</p>
+<p>相对熵的概念就是可以理解为两个随机变量的距离。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-随机性探讨" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/09/28/%E9%9A%8F%E6%9C%BA%E6%80%A7%E6%8E%A2%E8%AE%A8/"
+    >随机性探讨</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/09/28/%E9%9A%8F%E6%9C%BA%E6%80%A7%E6%8E%A2%E8%AE%A8/" class="article-date">
+  <time datetime="2019-09-28T07:48:55.000Z" itemprop="datePublished">2019-09-28</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>物理层面上出现随机性是非常少见的，物理规律通常认为是确定的。可是我们身处的社会规律，越来越多的接受了随机性的假设。在以前，统计方法都运用得很少，玻尔的老师卢瑟福曾经说过：“如果你的实验需要统计学，那么你应该再做个更好的实验。”</p>
+<p>在理性的基础上，所有的判断都是统计学。</p>
+<p>遗传学家霍尔丹曾说过：”人类是一种常规动物，并不能模仿自然界的无序。”生活中有各种“随机性”的错觉，事实上，人们很难抹去对随机的执念，怕比例失衡。比如投硬币多次正面后，总会不自觉的想象一些反面的情况。</p>
+<p>贝叶斯定理可以通过反馈不断更新概率从而精准预测。不需要考虑其他方面因素，可以成为先验概率或边缘概率。</p>
+<p>推断统计学中，我们要习惯不要说接受原假设，即使原假设概率很大，也只能用不能拒绝这样的字眼，只有备选假设才能接受。</p>
 
       
       <!-- reward -->
@@ -473,170 +892,14 @@
 
 </article>
     
-    <article id="post-为什么子类重写父类方法时抛出的异常不能比父类范围广" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/04/23/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E6%96%B9%E6%B3%95%E6%97%B6%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%E4%B8%8D%E8%83%BD%E6%AF%94%E7%88%B6%E7%B1%BB%E8%8C%83%E5%9B%B4%E5%B9%BF/"
-    >为什么子类重写父类方法时抛出的异常不能比父类范围广</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/04/23/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E6%96%B9%E6%B3%95%E6%97%B6%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%E4%B8%8D%E8%83%BD%E6%AF%94%E7%88%B6%E7%B1%BB%E8%8C%83%E5%9B%B4%E5%B9%BF/" class="article-date">
-  <time datetime="2018-04-23T08:21:59.000Z" itemprop="datePublished">2018-04-23</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>我们都知道在java 中，子类重写父类的方法时，如果父类的方法有异常声明，那么子类重写这个方法时候，所要声明的异常不应该比父类的大。如果父类没有抛异常，那么子类也不能抛。<br>那么，为什么子类重写父类方法时抛出的异常不能比父类范围广呢？</p>
-<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a><em>原因</em></h1><p>从字面意思上，子类继承了父类，那么就不应该存在比父类更多的问题，即不能抛出比父类更多的异常。<br>从原理上分析，举个例子，父类中存在一个方法test，一个子类继承了这个父类并且重写了test方法并且抛出了更多的异常，当一个程序在运行父类对象时能够正常捕获父类异常，但是当这个父类指向的是子类对象时，就会报错，因为子类的异常范围大于了父类，原来的捕获机制无法捕获。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-JQuery基础" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/03/28/JQuery%E5%9F%BA%E7%A1%80/"
-    >JQuery基础</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/03/28/JQuery%E5%9F%BA%E7%A1%80/" class="article-date">
-  <time datetime="2018-03-28T08:26:37.000Z" itemprop="datePublished">2018-03-28</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>先前自学了一段时间的JQuery，确实比原始的js简便不少。最近一直在学vue好久没用了，先记录下来，以免忘记。因为只是做个记录，所以内容就不展开了。</p>
-<h1 id="选择器"><a href="#选择器" class="headerlink" title="\选择器**"></a><strong><em>\</em>选择器**</strong></h1><p>（注：带冒号的都是修饰前面的标签）</p>
-<h2 id="基础选择器"><a href="#基础选择器" class="headerlink" title="\基础选择器**"></a><strong><em>\</em>基础选择器**</strong></h2><p>根据id选择，根据class选择，根据标签选择等等</p>
-<h2 id="层级选择器"><a href="#层级选择器" class="headerlink" title="\层级选择器**"></a><strong><em>\</em>层级选择器**</strong></h2><p><img src="file:////private/var/folders/q0/c8yjzcgj56lbtrncqgb_8nsm0000gn/T/com.kingsoft.wpsoffice.mac/wps-xingaolin/ksohtml/wpsFsiFrd.png" alt="img"> </p>
-<h2 id="内容选择器"><a href="#内容选择器" class="headerlink" title="\内容选择器**"></a><strong><em>\</em>内容选择器**</strong></h2><p>:has()选择器选择含有选择器所匹配的元素的父元素，返回集合元素<br>:empty选择器选择不包含子元素或文本的空元素，返回集合元素<br>:parent选择器选择含有子元素或文本的元素，返回集合元素<br>:contains(text)选择器选择含有文本内容为’text’的元素，返回集合元素</p>
-<h2 id="属性选择器"><a href="#属性选择器" class="headerlink" title="\属性选择器**"></a><strong><em>\</em>属性选择器**</strong></h2><p>$(“[attribute|=’value’]”)<br>*=包含；^=开头是；$=结尾是；</p>
-<h2 id="过滤选择器"><a href="#过滤选择器" class="headerlink" title="\过滤选择器**"></a><strong><em>\</em>过滤选择器**</strong></h2><p>:first 选取第一个元素,例$(“div:first”)<br>:last 选取最后一个元素 $(“div:last”)<br>:not() 去除所有给定选择器匹配的元素,例 $(“input:not(.myClass)”)<br>:even 选取索引数是偶数的元素 索引从0开始 $(“div:even”)<br>:odd 选取索引数是奇数的元素 索引从0开始 $(“div:odd”)<br>:eq(index)选取索引数等于index的元素 $(“div:eq(2)”)<br>:gt(index)选取索引数大于index的元素 $(“div:gt(2)”)<br>:lt(index)选取索引数小于index的元素 $(“div:lt(2)”)</p>
-<h2 id="子元素选择器"><a href="#子元素选择器" class="headerlink" title="\子元素选择器**"></a><strong><em>\</em>子元素选择器**</strong></h2><p>:nth-child(index/evenn/odd/equation)<br>解析：:eq(index)只匹配一个元素，而:nth-child将为每一个父元素匹配子元素，并且:nth-child(index)的index是从1开始的，而:eq(index)是从0开始的<br>:first-child 选取每个父元素的第一个子元素 集合元素<br>:last-child 选取每个父元素的最后一个子元素<br>:only-child 如果某个元素是他父元素中唯一的子元素，那么将会被匹配。</p>
-<h2 id="表单选择器"><a href="#表单选择器" class="headerlink" title="\表单选择器**"></a><strong><em>\</em>表单选择器**</strong></h2><p>:input 匹配所有form元素；</p>
-<h2 id="表单属性"><a href="#表单属性" class="headerlink" title="\表单属性**"></a><strong><em>\</em>表单属性**</strong></h2><p>:checked 选取所有被选中的元素（单选框，复选框<br>:selected 选取所有被选中的选项元素（下拉列表）</p>
-<h1 id="筛选"><a href="#筛选" class="headerlink" title="\筛选**"></a><strong><em>\</em>筛选**</strong></h1><h2 id="过滤"><a href="#过滤" class="headerlink" title="\过滤**"></a><strong><em>\</em>过滤**</strong></h2><p>eq();first();last();not();一眼就能看出什么意思。</p>
-<h2 id="串联"><a href="#串联" class="headerlink" title="\串联**"></a><strong><em>\</em>串联**</strong></h2><p>andself()选上原来的。<br>add()加上。</p>
-<h2 id="查找"><a href="#查找" class="headerlink" title="\查找**"></a><strong><em>\</em>查找**</strong></h2><p>chirldren();paretn();prev()前一个;prevall();nextall();find();siblings()前后所有弟兄；</p>
-<h1 id="属性"><a href="#属性" class="headerlink" title="\属性**"></a><strong><em>\</em>属性**</strong></h1><h2 id="style属性"><a href="#style属性" class="headerlink" title="\style属性**"></a><strong><em>\</em>style属性**</strong></h2><p>attr(“”,””)健值对的形式。</p>
-<h2 id="类"><a href="#类" class="headerlink" title="\类**"></a><strong><em>\</em>类**</strong></h2><p>addclass();removeclass();teggleclass();</p>
-<h2 id="文档操作"><a href="#文档操作" class="headerlink" title="\文档操作**"></a><strong><em>\</em>文档操作**</strong></h2><p>html();添加html文档</p>
-<h2 id="文体"><a href="#文体" class="headerlink" title="\文体**"></a><strong><em>\</em>文体**</strong></h2><p>text();</p>
-<h2 id="值"><a href="#值" class="headerlink" title="\值**"></a><strong><em>\</em>值**</strong></h2><p>val();</p>
-<h1 id="文档处理"><a href="#文档处理" class="headerlink" title="\文档处理**"></a><strong><em>\</em>文档处理**</strong></h1><h2 id="内部插入"><a href="#内部插入" class="headerlink" title="\内部插入**"></a><strong><em>\</em>内部插入**</strong></h2><p>append();appendTo();prepend();prependTo();</p>
-<h2 id="外部插入"><a href="#外部插入" class="headerlink" title="\外部插入**"></a><strong><em>\</em>外部插入**</strong></h2><p>after();before();insertAfter();insertBefore();</p>
-<h2 id="包围"><a href="#包围" class="headerlink" title="\包围**"></a><strong><em>\</em>包围**</strong></h2><p>wrap()外部添加;innerInner();wrapAll();</p>
-<h2 id="替换"><a href="#替换" class="headerlink" title="\替换**"></a><strong><em>\</em>替换**</strong></h2><p>replaceWidth();replaceAll();</p>
-<h2 id="删除"><a href="#删除" class="headerlink" title="\删除**"></a><strong><em>\</em>删除**</strong></h2><p>empty()清空内容;remove()清空标签;detach()绑定的事件还保留;</p>
-<h2 id="复制"><a href="#复制" class="headerlink" title="\复制**"></a><strong><em>\</em>复制**</strong></h2><p>clone()只复制标签不复制事件。</p>
-<h1 id="css样式"><a href="#css样式" class="headerlink" title="\css样式**"></a><strong><em>\</em>css样式**</strong></h1><p>（注：可视区域宽高$(window），文档总高度$(document)）</p>
-<h2 id="css（）"><a href="#css（）" class="headerlink" title="\css（）**"></a><strong><em>\</em>css（）**</strong></h2><p>键值对形式</p>
-<h2 id="位置"><a href="#位置" class="headerlink" title="\位置**"></a><strong><em>\</em>位置**</strong></h2><p>offset()返回或者设置top和left;<br>position()负坐标为起始；</p>
-<h2 id="尺寸"><a href="#尺寸" class="headerlink" title="\尺寸**"></a><strong><em>\</em>尺寸**</strong></h2><p>width();height();<br>innerwidth();innerHeight();加padding<br>outerwidth();outerHeight();加边框</p>
-<p>注：<br>1.dom加载完，js最好放body后面。<br>2.资源加载完，$(window).load(function………………………………)<br>3.JQuery等dom加载完，$(function)</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
   </article>
   
 
+  
+  <nav class="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+  </nav>
   
 </section>
 </div>

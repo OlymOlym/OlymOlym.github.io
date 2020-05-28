@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Archives: 2020/5 |  奥林博客
+     奥林博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -41,73 +41,219 @@
   
   <div id="app">
     <main class="content on">
-      <section class="outer">
+      
+<section class="cover">
+    
+      
+      <a class="forkMe" href="https://github.com/Shen-Yu/hexo-theme-ayer"
+        target="_blank"><img width="149" height="149" src="/images/forkme.png"
+          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover1.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">奥林博客</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+
+<div id="main">
+  <section class="outer">
   <article class="articles">
     
     
-    <h1 class="page-type-title">2020/5</h1>
     
     
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2020" class="archive-year">2020</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" class="archive-article-date">
-  <time datetime="2020-05-28T07:50:46.000Z" itemprop="datePublished">05/28</time>
-</a>
+    <article id="post-为什么子类重写父类方法时抛出的异常不能比父类范围广" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/"
-    >随机森林</a> 
+  <a class="article-title" href="/2018/04/23/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E6%96%B9%E6%B3%95%E6%97%B6%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%E4%B8%8D%E8%83%BD%E6%AF%94%E7%88%B6%E7%B1%BB%E8%8C%83%E5%9B%B4%E5%B9%BF/"
+    >为什么子类重写父类方法时抛出的异常不能比父类范围广</a> 
 </h2>
  
 
     </header>
     
+
     
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/" class="archive-article-date">
-  <time datetime="2020-05-28T07:11:06.000Z" itemprop="datePublished">05/28</time>
+    <div class="article-meta">
+      <a href="/2018/04/23/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E6%96%B9%E6%B3%95%E6%97%B6%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%E4%B8%8D%E8%83%BD%E6%AF%94%E7%88%B6%E7%B1%BB%E8%8C%83%E5%9B%B4%E5%B9%BF/" class="article-date">
+  <time datetime="2018-04-23T08:21:59.000Z" itemprop="datePublished">2018-04-23</time>
 </a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>我们都知道在java 中，子类重写父类的方法时，如果父类的方法有异常声明，那么子类重写这个方法时候，所要声明的异常不应该比父类的大。如果父类没有抛异常，那么子类也不能抛。<br>那么，为什么子类重写父类方法时抛出的异常不能比父类范围广呢？</p>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a><em>原因</em></h1><p>从字面意思上，子类继承了父类，那么就不应该存在比父类更多的问题，即不能抛出比父类更多的异常。<br>从原理上分析，举个例子，父类中存在一个方法test，一个子类继承了这个父类并且重写了test方法并且抛出了更多的异常，当一个程序在运行父类对象时能够正常捕获父类异常，但是当这个父类指向的是子类对象时，就会报错，因为子类的异常范围大于了父类，原来的捕获机制无法捕获。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
+    <article id="post-JQuery基础" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/"
-    >决策树</a> 
+  <a class="article-title" href="/2018/03/28/JQuery%E5%9F%BA%E7%A1%80/"
+    >JQuery基础</a> 
 </h2>
  
 
     </header>
     
+
     
-  </div>
-</article>
+    <div class="article-meta">
+      <a href="/2018/03/28/JQuery%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2018-03-28T08:26:37.000Z" itemprop="datePublished">2018-03-28</time>
+</a>
+      
+      
       
       
     </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>先前自学了一段时间的JQuery，确实比原始的js简便不少。最近一直在学vue好久没用了，先记录下来，以免忘记。因为只是做个记录，所以内容就不展开了。</p>
+<h1 id="选择器"><a href="#选择器" class="headerlink" title="\选择器**"></a><strong><em>\</em>选择器**</strong></h1><p>（注：带冒号的都是修饰前面的标签）</p>
+<h2 id="基础选择器"><a href="#基础选择器" class="headerlink" title="\基础选择器**"></a><strong><em>\</em>基础选择器**</strong></h2><p>根据id选择，根据class选择，根据标签选择等等</p>
+<h2 id="层级选择器"><a href="#层级选择器" class="headerlink" title="\层级选择器**"></a><strong><em>\</em>层级选择器**</strong></h2><p><img src="file:////private/var/folders/q0/c8yjzcgj56lbtrncqgb_8nsm0000gn/T/com.kingsoft.wpsoffice.mac/wps-xingaolin/ksohtml/wpsFsiFrd.png" alt="img"> </p>
+<h2 id="内容选择器"><a href="#内容选择器" class="headerlink" title="\内容选择器**"></a><strong><em>\</em>内容选择器**</strong></h2><p>:has()选择器选择含有选择器所匹配的元素的父元素，返回集合元素<br>:empty选择器选择不包含子元素或文本的空元素，返回集合元素<br>:parent选择器选择含有子元素或文本的元素，返回集合元素<br>:contains(text)选择器选择含有文本内容为’text’的元素，返回集合元素</p>
+<h2 id="属性选择器"><a href="#属性选择器" class="headerlink" title="\属性选择器**"></a><strong><em>\</em>属性选择器**</strong></h2><p>$(“[attribute|=’value’]”)<br>*=包含；^=开头是；$=结尾是；</p>
+<h2 id="过滤选择器"><a href="#过滤选择器" class="headerlink" title="\过滤选择器**"></a><strong><em>\</em>过滤选择器**</strong></h2><p>:first 选取第一个元素,例$(“div:first”)<br>:last 选取最后一个元素 $(“div:last”)<br>:not() 去除所有给定选择器匹配的元素,例 $(“input:not(.myClass)”)<br>:even 选取索引数是偶数的元素 索引从0开始 $(“div:even”)<br>:odd 选取索引数是奇数的元素 索引从0开始 $(“div:odd”)<br>:eq(index)选取索引数等于index的元素 $(“div:eq(2)”)<br>:gt(index)选取索引数大于index的元素 $(“div:gt(2)”)<br>:lt(index)选取索引数小于index的元素 $(“div:lt(2)”)</p>
+<h2 id="子元素选择器"><a href="#子元素选择器" class="headerlink" title="\子元素选择器**"></a><strong><em>\</em>子元素选择器**</strong></h2><p>:nth-child(index/evenn/odd/equation)<br>解析：:eq(index)只匹配一个元素，而:nth-child将为每一个父元素匹配子元素，并且:nth-child(index)的index是从1开始的，而:eq(index)是从0开始的<br>:first-child 选取每个父元素的第一个子元素 集合元素<br>:last-child 选取每个父元素的最后一个子元素<br>:only-child 如果某个元素是他父元素中唯一的子元素，那么将会被匹配。</p>
+<h2 id="表单选择器"><a href="#表单选择器" class="headerlink" title="\表单选择器**"></a><strong><em>\</em>表单选择器**</strong></h2><p>:input 匹配所有form元素；</p>
+<h2 id="表单属性"><a href="#表单属性" class="headerlink" title="\表单属性**"></a><strong><em>\</em>表单属性**</strong></h2><p>:checked 选取所有被选中的元素（单选框，复选框<br>:selected 选取所有被选中的选项元素（下拉列表）</p>
+<h1 id="筛选"><a href="#筛选" class="headerlink" title="\筛选**"></a><strong><em>\</em>筛选**</strong></h1><h2 id="过滤"><a href="#过滤" class="headerlink" title="\过滤**"></a><strong><em>\</em>过滤**</strong></h2><p>eq();first();last();not();一眼就能看出什么意思。</p>
+<h2 id="串联"><a href="#串联" class="headerlink" title="\串联**"></a><strong><em>\</em>串联**</strong></h2><p>andself()选上原来的。<br>add()加上。</p>
+<h2 id="查找"><a href="#查找" class="headerlink" title="\查找**"></a><strong><em>\</em>查找**</strong></h2><p>chirldren();paretn();prev()前一个;prevall();nextall();find();siblings()前后所有弟兄；</p>
+<h1 id="属性"><a href="#属性" class="headerlink" title="\属性**"></a><strong><em>\</em>属性**</strong></h1><h2 id="style属性"><a href="#style属性" class="headerlink" title="\style属性**"></a><strong><em>\</em>style属性**</strong></h2><p>attr(“”,””)健值对的形式。</p>
+<h2 id="类"><a href="#类" class="headerlink" title="\类**"></a><strong><em>\</em>类**</strong></h2><p>addclass();removeclass();teggleclass();</p>
+<h2 id="文档操作"><a href="#文档操作" class="headerlink" title="\文档操作**"></a><strong><em>\</em>文档操作**</strong></h2><p>html();添加html文档</p>
+<h2 id="文体"><a href="#文体" class="headerlink" title="\文体**"></a><strong><em>\</em>文体**</strong></h2><p>text();</p>
+<h2 id="值"><a href="#值" class="headerlink" title="\值**"></a><strong><em>\</em>值**</strong></h2><p>val();</p>
+<h1 id="文档处理"><a href="#文档处理" class="headerlink" title="\文档处理**"></a><strong><em>\</em>文档处理**</strong></h1><h2 id="内部插入"><a href="#内部插入" class="headerlink" title="\内部插入**"></a><strong><em>\</em>内部插入**</strong></h2><p>append();appendTo();prepend();prependTo();</p>
+<h2 id="外部插入"><a href="#外部插入" class="headerlink" title="\外部插入**"></a><strong><em>\</em>外部插入**</strong></h2><p>after();before();insertAfter();insertBefore();</p>
+<h2 id="包围"><a href="#包围" class="headerlink" title="\包围**"></a><strong><em>\</em>包围**</strong></h2><p>wrap()外部添加;innerInner();wrapAll();</p>
+<h2 id="替换"><a href="#替换" class="headerlink" title="\替换**"></a><strong><em>\</em>替换**</strong></h2><p>replaceWidth();replaceAll();</p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="\删除**"></a><strong><em>\</em>删除**</strong></h2><p>empty()清空内容;remove()清空标签;detach()绑定的事件还保留;</p>
+<h2 id="复制"><a href="#复制" class="headerlink" title="\复制**"></a><strong><em>\</em>复制**</strong></h2><p>clone()只复制标签不复制事件。</p>
+<h1 id="css样式"><a href="#css样式" class="headerlink" title="\css样式**"></a><strong><em>\</em>css样式**</strong></h1><p>（注：可视区域宽高$(window），文档总高度$(document)）</p>
+<h2 id="css（）"><a href="#css（）" class="headerlink" title="\css（）**"></a><strong><em>\</em>css（）**</strong></h2><p>键值对形式</p>
+<h2 id="位置"><a href="#位置" class="headerlink" title="\位置**"></a><strong><em>\</em>位置**</strong></h2><p>offset()返回或者设置top和left;<br>position()负坐标为起始；</p>
+<h2 id="尺寸"><a href="#尺寸" class="headerlink" title="\尺寸**"></a><strong><em>\</em>尺寸**</strong></h2><p>width();height();<br>innerwidth();innerHeight();加padding<br>outerwidth();outerHeight();加边框</p>
+<p>注：<br>1.dom加载完，js最好放body后面。<br>2.资源加载完，$(window).load(function………………………………)<br>3.JQuery等dom加载完，$(function)</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
   </div>
+
+  
+
+  
   
   
 
+  
+  
+  
+
+</article>
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
   
 </section>
+</div>
+
       <footer class="footer">
   <div class="outer">
     <ul>
