@@ -81,6 +81,73 @@
     
     
     
+    <article id="post-mysql数据库空闲8小时自动断开连接" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/"
+    >mysql数据库空闲8小时自动断开连接</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/" class="article-date">
+  <time datetime="2018-05-26T08:24:47.000Z" itemprop="datePublished">2018-05-26</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>项目开发时遇到了一个坑，开发时数据获取正常，一天过后再用就发现获取不到数据了，在网上查阅资料发现这是mysql数据库的一个机制。MySQL服务器默认的“wait_timeout”是28800秒即8小时，意味着如果一个连接的空闲时间超过8个小时，MySQL将自动断开该连接。所以数据就访问不到了。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="\解决方法**"></a><strong><em>\</em>解决方法**</strong></h1><p>网上有好几种解决方法，但我试了试只有修改my.ini文件这种方法有效。其他的避免8小时空闲的也不是什么好方法，定期发送请求感觉治标不治本。<br>先找到my.ini文件，这个文件在mysql根目录里，如果没有，看看是不是系统给隐藏了。打开以后，在最后两行添加<br>t_timeout=31536000<br>interactive_timeout=31536000<br>就哦了。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-为什么子类重写父类方法时抛出的异常不能比父类范围广" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 

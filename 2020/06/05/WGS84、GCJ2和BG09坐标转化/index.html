@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    随机森林 |  奥林博客
+    WGS84、GCJ2和BG09坐标转化 |  奥林博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -42,7 +42,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-随机森林" class="article article-type-post" itemscope
+  <article id="post-WGS84、GCJ2和BG09坐标转化" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -50,7 +50,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  随机森林
+  WGS84、GCJ2和BG09坐标转化
 </h1>
  
 
@@ -59,8 +59,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" class="article-date">
-  <time datetime="2020-05-28T07:50:46.000Z" itemprop="datePublished">2020-05-28</time>
+      <a href="/2020/06/05/WGS84%E3%80%81GCJ2%E5%92%8CBG09%E5%9D%90%E6%A0%87%E8%BD%AC%E5%8C%96/" class="article-date">
+  <time datetime="2020-06-05T08:55:11.000Z" itemprop="datePublished">2020-06-05</time>
 </a>
       
       
@@ -70,7 +70,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.1k</span>
+            <span class="post-count">926</span>
         </span>
     </span>
 
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">5 min</span>
         </span>
     </span>
 </div>
@@ -102,33 +102,16 @@
       
 
       
-      <p>目前的集成学习算法主要有两大派系，一个是boosting算法为代表的强依赖关系个体学习器，必须串行生成的序列化方法；另一个是以Bagging和“随机森林”为代表的算法，其个体学习器间不存在强依赖关系，并能够同事生成的并行化方法。</p>
-<p>​    结合策略有：平均法、投票法和学习法等。平均法常用语数值类型的回归预测，对于若干个弱分类器进行算术平均或加权平均得到最终的预测输出。投票法是主要针对分类问题的预测，它通过对不同弱分类器结果进行投票，少数服从多数。学习法则是对弱分类器结果进行处理再加上一层学习器，重新训练一个分类器来得到最终结果。</p>
-<p>Boosting算法</p>
-<p>​    主要专注于提高弱分类算法的精确度方面。</p>
-<p>​    方法：将样本集分割成若干个样本子集，每一个样本集赋予相同权重，给基分类器进行分类，分类错误的分类器的样本集提高权重（实际是正确的降低权重），然后训练第二个训练集，以此类推，产生n个分类器，最后Boosting框架算法将这n个基分类器进行加权合并，产生一个最后的结果分类器。Adaboost就是Boosting中较为代表的算法。</p>
-<p>Bagging方法</p>
-<p>​    随机有放回得选择训练数据，在此基础上构造分类器，然后组合到一起。每一次随机采样生成一个采样集，也能独立训练一个弱分类器，如此进行n次，就得到n个弱分类器，再进行组合成最终的强分类器。</p>
-<p>随机森林</p>
-<p>随机森林是以决策树这种弱分类器为基础，进行进阶的一种Bagging集成学习算法。在Bagging随机采样的基础上，又加上了特征的随机选择。</p>
-<p>步骤：</p>
-<p>（1） 重抽样生成k个样本子集，理论上覆盖2/3的数据，未包含的数据作为测试数据。</p>
-<p>（2） 利用k个样本子集生成k个决策树，每棵树从M个特征中随机选择m个特征（实际项目中通常采用m^1/2)，充分生长不做剪枝。</p>
-<p>（3） 综合每棵树的测试结果按照一定的投票机制确定最终结果。</p>
-<p>投票机制有很多，除了常见的少数服从多数还有一票否决法，阈值法与贝叶斯投票法。</p>
-<p>一票否决法就是当且仅当所有决策树都对此实例进行如此分类才可以，否则拒绝。</p>
-<p>阈值法则是统计实例分为正样本和负样本的数目，如果达到事先定好的阈值则划分到该类上。</p>
-<p>贝叶斯投票机制[1]就是根据不同决策树非分类效果赋予不同的权重，最后进行加权计算。</p>
-<p>优点：随机森林算法很好的利用了随机性，最小化了各树之间的相关性，提高了分类性能。同时，森林可以实现并行化，分类速度非常快。</p>
-<p>极端随机森林</p>
-<p>区别：</p>
-<p>（一） 随机森林采用随机生成的样本子集来训练决策树，而极端随机森林采用所有的训练样本得到每一棵决策树。</p>
-<p>（二） 随机森林在随机子集中得到最佳分裂属性，而计算随机森林采用完全随机得到分裂值，再选择分类值较大的划分。</p>
-<p>注释：</p>
-<p>[1]贝叶斯平均法　</p>
-<p><img src="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/wpsfowMKW.png" alt="img"> </p>
-<p>C是补偿评价数（平均评价数），M是补偿评分（平均评分），n是评价数量，s是已计算评分。通常C、M应为常量，使最终评分只与评价数量和已计算评分相关。</p>
-<p>在这个公式中，M（总体平均分）是”先验概率”，每一次新的投票都是一个调整因子，使总体平均分不断向该项目的真实投票结果靠近。投票人数越多，该项目的”贝叶斯平均”就越接近算术平均，对排名的影响就越小。</p>
+      <p>WGS-84：是国际标准，GPS坐标（Google Earth使用、或者GPS模块）<br>GCJ-02：中国坐标偏移标准，Google Map、高德、腾讯使用<br>BD-09：百度坐标偏移标准，Baidu Map使用</p>
+<p>根据我国相关法律，不允许将坐标转化成WGS坐标，相关地图开发网站并不会提供转化为WGS的API接口，于是需要自行编写，根据网络上js相关语句编辑整理了一份python版本，以供以后使用。</p>
+<p>“””<br>Created on Fri Jun  5 11:35:50 2020</p>
+<p>@author: xingaolin<br>“””</p>
+<p>import urllib.parse<br>import hashlib<br>import requests<br>import json<br>import pandas as pd<br>import math</p>
+<p>def gcj2towgs(lat,lon):<br>    lat=float(lat)<br>    lon=float(lon)<br>    a = 6378245.0 # 克拉索夫斯基椭球参数长半轴a<br>    ee = 0.00669342162296594323 #克拉索夫斯基椭球参数第一偏心率平方<br>    PI = 3.14159265358979324 # 圆周率<br>    # 以下为转换公式<br>    x = lon - 105.0<br>    y = lat - 35.0<br>    # 经度<br>    dLon = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * math.sqrt(abs(x))<br>    dLon += (20.0 * math.sin(6.0 * x * PI) + 20.0 * math.sin(2.0 * x * PI)) * 2.0 / 3.0<br>    dLon += (20.0 * math.sin(x * PI) + 40.0 * math.sin(x / 3.0 * PI)) * 2.0 / 3.0<br>    dLon += (150.0 * math.sin(x / 12.0 * PI) + 300.0 * math.sin(x / 30.0 * PI)) * 2.0 / 3.0<br>    #纬度<br>    dLat = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * math.sqrt(abs(x))<br>    dLat += (20.0 * math.sin(6.0 * x * PI) + 20.0 * math.sin(2.0 * x * PI)) * 2.0 / 3.0<br>    dLat += (20.0 * math.sin(y * PI) + 40.0 * math.sin(y / 3.0 * PI)) * 2.0 / 3.0<br>    dLat += (160.0 * math.sin(y / 12.0 * PI) + 320 * math.sin(y * PI / 30.0)) * 2.0 / 3.0<br>    radLat = lat / 180.0 * PI<br>    magic = math.sin(radLat)<br>    magic = 1 - ee * magic * magic<br>    sqrtMagic = math.sqrt(magic)<br>    dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * PI)<br>    dLon = (dLon * 180.0) / (a / sqrtMagic * math.cos(radLat) * PI)<br>    wgsLon = lon - dLon<br>    wgsLat = lat - dLat<br>    return {‘lon’:wgsLon,’lat’:wgsLat}</p>
+<p>def bd09togcj2(bdLat, bdLon):<br>    x= float(bdLon) - 0.0065<br>    y =float(bdLat) - 0.006<br>    z= math.sqrt(x * x + y * y) - 0.00002 * math.sin(y * (3.14159265358979324 * 3000.0 / 180.0))<br>    theta = math.atan2(y, x) - 0.000003 * math.cos(x * (3.14159265358979324 * 3000.0 / 180.0))<br>    gcjLon = z * math.cos(theta)<br>    gcjLat = z * math.sin(theta)<br>    return {‘lat’ : gcjLat, ‘lon’ : gcjLon}<br>######百度地图转换gps######<br>def bd09towgs84(lat,lon):<br>    gcj2=bd09togcj2(lat, lon)<br>    wgs=gcj2towgs(gcj2[‘lat’],gcj2[‘lon’])<br>    return {‘lat’ : wgs[‘lat’], ‘lon’ :wgs[‘lon’]}</p>
+<p>def wgs84wogcj2(lat,lon):<br>    lat=float(lat)<br>    lon=float(lon)<br>    a = 6378245.0 # 克拉索夫斯基椭球参数长半轴a<br>    ee = 0.00669342162296594323 #克拉索夫斯基椭球参数第一偏心率平方<br>    PI = 3.14159265358979324 # 圆周率<br>    # 以下为转换公式<br>    x = lon - 105.0<br>    y = lat - 35.0<br>    # 经度<br>    dLon = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * math.sqrt(abs(x))<br>    dLon += (20.0 * math.sin(6.0 * x * PI) + 20.0 * math.sin(2.0 * x * PI)) * 2.0 / 3.0<br>    dLon += (20.0 * math.sin(x * PI) + 40.0 * math.sin(x / 3.0 * PI)) * 2.0 / 3.0<br>    dLon += (150.0 * math.sin(x / 12.0 * PI) + 300.0 * math.sin(x / 30.0 * PI)) * 2.0 / 3.0<br>    #纬度<br>    dLat = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * math.sqrt(abs(x))<br>    dLat += (20.0 * math.sin(6.0 * x * PI) + 20.0 * math.sin(2.0 * x * PI)) * 2.0 / 3.0<br>    dLat += (20.0 * math.sin(y * PI) + 40.0 * math.sin(y / 3.0 * PI)) * 2.0 / 3.0<br>    dLat += (160.0 * math.sin(y / 12.0 * PI) + 320 * math.sin(y * PI / 30.0)) * 2.0 / 3.0<br>    radLat = lat / 180.0 * PI<br>    magic = math.sin(radLat)<br>    magic = 1 - ee * magic * magic<br>    sqrtMagic = math.sqrt(magic)<br>    dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * PI)<br>    dLon = (dLon * 180.0) / (a / sqrtMagic * math.cos(radLat) * PI)<br>    wgsLon = lon + dLon<br>    wgsLat = lat + dLat<br>    return {‘lat’ : wgsLat, ‘lon’ :  wgsLon}       </p>
+<p>def gcj2tobd09(lat,lon):<br>    x=lon<br>    y=lat<br>    z= math.sqrt(x * x + y * y) - 0.00002 * math.sin(y * (3.14159265358979324 * 3000.0 / 180.0))<br>    theta = math.atan2(y, x) - 0.000003 * math.cos(x * (3.14159265358979324 * 3000.0 / 180.0))<br>    bdLon = z * math.cos(theta)+ 0.0065<br>    bdLat = z * math.sin(theta)+ 0.006<br>    return {‘lat’ : bdLat,’lon’ : bdLon}<br>############gps转百度地图#############<br>def wgs84tobd09(lat,lon):<br>    gc=wgs84wogcj2(float(lat),float(lon))<br>    bd=gcj2tobd09(gc[‘lat’],gc[‘lon’])<br>    return {‘lat’ : bd[‘lat’], ‘lon’ :  bd[‘lon’]}</p>
+<p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    #data=pd.read_excel(“”)<br>    LON = ‘112.40832’<br>    LAT = ‘34.636055’<br>    #myconv = Geoconv()<br>    wgs=bd09towgs84(LAT,LON)<br>    print(wgs)<br>    bd=wgs84tobd09(wgs[‘lat’],wgs[‘lon’])<br>    print(bd)</p>
 
       
       <!-- reward -->
@@ -197,7 +180,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/06/05/WGS84%E3%80%81GCJ2%E5%92%8CBG09%E5%9D%90%E6%A0%87%E8%BD%AC%E5%8C%96/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -213,19 +196,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/06/05/WGS84%E3%80%81GCJ2%E5%92%8CBG09%E5%9D%90%E6%A0%87%E8%BD%AC%E5%8C%96/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            WGS84、GCJ2和BG09坐标转化
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/05/28/%E5%86%B3%E7%AD%96%E6%A0%91/" class="article-nav-link">
+      <a href="/2020/05/28/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">决策树</div>
+        <div class="article-nav-title">随机森林</div>
       </a>
     
   </nav>

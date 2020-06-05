@@ -81,6 +81,81 @@
     
     
     
+    <article id="post-WGS84、GCJ2和BG09坐标转化" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/06/05/WGS84%E3%80%81GCJ2%E5%92%8CBG09%E5%9D%90%E6%A0%87%E8%BD%AC%E5%8C%96/"
+    >WGS84、GCJ2和BG09坐标转化</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/06/05/WGS84%E3%80%81GCJ2%E5%92%8CBG09%E5%9D%90%E6%A0%87%E8%BD%AC%E5%8C%96/" class="article-date">
+  <time datetime="2020-06-05T08:55:11.000Z" itemprop="datePublished">2020-06-05</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>WGS-84：是国际标准，GPS坐标（Google Earth使用、或者GPS模块）<br>GCJ-02：中国坐标偏移标准，Google Map、高德、腾讯使用<br>BD-09：百度坐标偏移标准，Baidu Map使用</p>
+<p>根据我国相关法律，不允许将坐标转化成WGS坐标，相关地图开发网站并不会提供转化为WGS的API接口，于是需要自行编写，根据网络上js相关语句编辑整理了一份python版本，以供以后使用。</p>
+<p>“””<br>Created on Fri Jun  5 11:35:50 2020</p>
+<p>@author: xingaolin<br>“””</p>
+<p>import urllib.parse<br>import hashlib<br>import requests<br>import json<br>import pandas as pd<br>import math</p>
+<p>def gcj2towgs(lat,lon):<br>    lat=float(lat)<br>    lon=float(lon)<br>    a = 6378245.0 # 克拉索夫斯基椭球参数长半轴a<br>    ee = 0.00669342162296594323 #克拉索夫斯基椭球参数第一偏心率平方<br>    PI = 3.14159265358979324 # 圆周率<br>    # 以下为转换公式<br>    x = lon - 105.0<br>    y = lat - 35.0<br>    # 经度<br>    dLon = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * math.sqrt(abs(x))<br>    dLon += (20.0 * math.sin(6.0 * x * PI) + 20.0 * math.sin(2.0 * x * PI)) * 2.0 / 3.0<br>    dLon += (20.0 * math.sin(x * PI) + 40.0 * math.sin(x / 3.0 * PI)) * 2.0 / 3.0<br>    dLon += (150.0 * math.sin(x / 12.0 * PI) + 300.0 * math.sin(x / 30.0 * PI)) * 2.0 / 3.0<br>    #纬度<br>    dLat = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * math.sqrt(abs(x))<br>    dLat += (20.0 * math.sin(6.0 * x * PI) + 20.0 * math.sin(2.0 * x * PI)) * 2.0 / 3.0<br>    dLat += (20.0 * math.sin(y * PI) + 40.0 * math.sin(y / 3.0 * PI)) * 2.0 / 3.0<br>    dLat += (160.0 * math.sin(y / 12.0 * PI) + 320 * math.sin(y * PI / 30.0)) * 2.0 / 3.0<br>    radLat = lat / 180.0 * PI<br>    magic = math.sin(radLat)<br>    magic = 1 - ee * magic * magic<br>    sqrtMagic = math.sqrt(magic)<br>    dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * PI)<br>    dLon = (dLon * 180.0) / (a / sqrtMagic * math.cos(radLat) * PI)<br>    wgsLon = lon - dLon<br>    wgsLat = lat - dLat<br>    return {‘lon’:wgsLon,’lat’:wgsLat}</p>
+<p>def bd09togcj2(bdLat, bdLon):<br>    x= float(bdLon) - 0.0065<br>    y =float(bdLat) - 0.006<br>    z= math.sqrt(x * x + y * y) - 0.00002 * math.sin(y * (3.14159265358979324 * 3000.0 / 180.0))<br>    theta = math.atan2(y, x) - 0.000003 * math.cos(x * (3.14159265358979324 * 3000.0 / 180.0))<br>    gcjLon = z * math.cos(theta)<br>    gcjLat = z * math.sin(theta)<br>    return {‘lat’ : gcjLat, ‘lon’ : gcjLon}<br>######百度地图转换gps######<br>def bd09towgs84(lat,lon):<br>    gcj2=bd09togcj2(lat, lon)<br>    wgs=gcj2towgs(gcj2[‘lat’],gcj2[‘lon’])<br>    return {‘lat’ : wgs[‘lat’], ‘lon’ :wgs[‘lon’]}</p>
+<p>def wgs84wogcj2(lat,lon):<br>    lat=float(lat)<br>    lon=float(lon)<br>    a = 6378245.0 # 克拉索夫斯基椭球参数长半轴a<br>    ee = 0.00669342162296594323 #克拉索夫斯基椭球参数第一偏心率平方<br>    PI = 3.14159265358979324 # 圆周率<br>    # 以下为转换公式<br>    x = lon - 105.0<br>    y = lat - 35.0<br>    # 经度<br>    dLon = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * math.sqrt(abs(x))<br>    dLon += (20.0 * math.sin(6.0 * x * PI) + 20.0 * math.sin(2.0 * x * PI)) * 2.0 / 3.0<br>    dLon += (20.0 * math.sin(x * PI) + 40.0 * math.sin(x / 3.0 * PI)) * 2.0 / 3.0<br>    dLon += (150.0 * math.sin(x / 12.0 * PI) + 300.0 * math.sin(x / 30.0 * PI)) * 2.0 / 3.0<br>    #纬度<br>    dLat = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * math.sqrt(abs(x))<br>    dLat += (20.0 * math.sin(6.0 * x * PI) + 20.0 * math.sin(2.0 * x * PI)) * 2.0 / 3.0<br>    dLat += (20.0 * math.sin(y * PI) + 40.0 * math.sin(y / 3.0 * PI)) * 2.0 / 3.0<br>    dLat += (160.0 * math.sin(y / 12.0 * PI) + 320 * math.sin(y * PI / 30.0)) * 2.0 / 3.0<br>    radLat = lat / 180.0 * PI<br>    magic = math.sin(radLat)<br>    magic = 1 - ee * magic * magic<br>    sqrtMagic = math.sqrt(magic)<br>    dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * PI)<br>    dLon = (dLon * 180.0) / (a / sqrtMagic * math.cos(radLat) * PI)<br>    wgsLon = lon + dLon<br>    wgsLat = lat + dLat<br>    return {‘lat’ : wgsLat, ‘lon’ :  wgsLon}       </p>
+<p>def gcj2tobd09(lat,lon):<br>    x=lon<br>    y=lat<br>    z= math.sqrt(x * x + y * y) - 0.00002 * math.sin(y * (3.14159265358979324 * 3000.0 / 180.0))<br>    theta = math.atan2(y, x) - 0.000003 * math.cos(x * (3.14159265358979324 * 3000.0 / 180.0))<br>    bdLon = z * math.cos(theta)+ 0.0065<br>    bdLat = z * math.sin(theta)+ 0.006<br>    return {‘lat’ : bdLat,’lon’ : bdLon}<br>############gps转百度地图#############<br>def wgs84tobd09(lat,lon):<br>    gc=wgs84wogcj2(float(lat),float(lon))<br>    bd=gcj2tobd09(gc[‘lat’],gc[‘lon’])<br>    return {‘lat’ : bd[‘lat’], ‘lon’ :  bd[‘lon’]}</p>
+<p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    #data=pd.read_excel(“”)<br>    LON = ‘112.40832’<br>    LAT = ‘34.636055’<br>    #myconv = Geoconv()<br>    wgs=bd09towgs84(LAT,LON)<br>    print(wgs)<br>    bd=wgs84tobd09(wgs[‘lat’],wgs[‘lon’])<br>    print(bd)</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-随机森林" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -796,73 +871,6 @@
 <h1 id="css图片加载不出来"><a href="#css图片加载不出来" class="headerlink" title="\css图片加载不出来**"></a><strong><em>\</em>css图片加载不出来**</strong></h1><p>还得设置一下css的资源访问路径</p>
 <h2 id="打开"><a href="#打开" class="headerlink" title="\打开**"></a><strong><em>\</em>打开**</strong></h2><p> <img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%873.png" alt="图片3"></p>
 <h2 id="添加"><a href="#添加" class="headerlink" title="\添加**"></a><strong><em>\</em>添加**</strong></h2><p><img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%874.png" alt="图片4"></p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-mysql数据库空闲8小时自动断开连接" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/"
-    >mysql数据库空闲8小时自动断开连接</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/05/26/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B28%E5%B0%8F%E6%97%B6%E8%87%AA%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5/" class="article-date">
-  <time datetime="2018-05-26T08:24:47.000Z" itemprop="datePublished">2018-05-26</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>项目开发时遇到了一个坑，开发时数据获取正常，一天过后再用就发现获取不到数据了，在网上查阅资料发现这是mysql数据库的一个机制。MySQL服务器默认的“wait_timeout”是28800秒即8小时，意味着如果一个连接的空闲时间超过8个小时，MySQL将自动断开该连接。所以数据就访问不到了。</p>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="\解决方法**"></a><strong><em>\</em>解决方法**</strong></h1><p>网上有好几种解决方法，但我试了试只有修改my.ini文件这种方法有效。其他的避免8小时空闲的也不是什么好方法，定期发送请求感觉治标不治本。<br>先找到my.ini文件，这个文件在mysql根目录里，如果没有，看看是不是系统给隐藏了。打开以后，在最后两行添加<br>t_timeout=31536000<br>interactive_timeout=31536000<br>就哦了。</p>
 
       
       <!-- reward -->
