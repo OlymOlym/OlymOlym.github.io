@@ -81,6 +81,73 @@
     
     
     
+    <article id="post-vue中this的作用域" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/06/07/vue%E4%B8%ADthis%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/"
+    >vue中this的作用域</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/06/07/vue%E4%B8%ADthis%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
+  <time datetime="2018-06-07T07:29:54.000Z" itemprop="datePublished">2018-06-07</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"><a href="#页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。" class="headerlink" title="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"></a><em>页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。</em></h2><p>原来函数内的this和函数外的this不是一回事，咱们可以打印一下<br>打印的结果<br>由此可知，在该函数内直接用this可以获取此marker内存储的信息，如我存的address，cost等等。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a><em>解决方法</em></h1><p>若想要在该方法里使用vue，则可以在函数外设置一个变量指向this（即该vue对象），在方法体内调用该变量即可。主要是避免this的重合。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-vue页面空白" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 

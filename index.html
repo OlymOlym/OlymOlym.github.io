@@ -81,6 +81,88 @@
     
     
     
+    <article id="post-跨服务器数据传输" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/06/11/%E8%B7%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/"
+    >跨服务器数据传输</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/06/11/%E8%B7%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="article-date">
+  <time datetime="2020-06-11T02:45:25.000Z" itemprop="datePublished">2020-06-11</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="Paramiko介绍"><a href="#Paramiko介绍" class="headerlink" title="Paramiko介绍"></a>Paramiko介绍</h2><p>paramiko包含两个核心组件：SSHClient和SFTPClient。</p>
+<p>SSHClient的作用类似于Linux的ssh命令，是对SSH会话的封装，该类封装了传输(Transport)，通道(Channel)及SFTPClient建立的方法(open_sftp)，通常用于执行远程命令。</p>
+<p>SFTPClient的作用类似与Linux的sftp命令，是对SFTP客户端的封装，用以实现远程文件操作，如文件上传、下载、修改文件权限等操作。</p>
+<h3 id="1-SSHClient"><a href="#1-SSHClient" class="headerlink" title="1.SSHClient"></a>1.SSHClient</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> paramiko</span><br><span class="line">ssh = paramiko.SSHClient()</span><br><span class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</span><br><span class="line">ssh.connect(<span class="string">"某IP地址"</span>,<span class="number">22</span>,<span class="string">"用户名"</span>, <span class="string">"口令"</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Transport"><a href="#2-Transport" class="headerlink" title="2.Transport"></a>2.Transport</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> paramiko</span><br><span class="line">t = paramiko.Transport((<span class="string">"主机"</span>,<span class="string">"端口"</span>))</span><br><span class="line">t.connect(username = <span class="string">"用户名"</span>, password = <span class="string">"口令"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="sftp传输"><a href="#sftp传输" class="headerlink" title="sftp传输"></a>sftp传输</h2><p>基于Transport方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sftp = paramiko.SFTPClient.from_transport(client)</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以采用put和get进行获取和发送操作</p>
+<figure class="highlight plain"><figcaption><span>y</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sftp.put(本机地址,发送地址)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-文件读写操作" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -812,73 +894,6 @@
       
       <p>敲代码，肯定会遇到各种问题，有的是交给计算机处理的error，然后是咱们看的异常exception。而异常中RuntimeException是不能进行捕获抛异常的，原因如下。</p>
 <h2 id="运行时异常和编译时异常"><a href="#运行时异常和编译时异常" class="headerlink" title="运行时异常和编译时异常"></a><em>运行时异常和编译时异常</em></h2><p>咱们的RuntimeException就属于运行时异常，至于为什么不进行处理，因为这些异常是咱们写的代码有问题，例如数组下标越界等，是咱们代码的问题，所以不能捕获这种异常，而是应该进行修改。<br>不是此类异常的，就是编译时异常了，这些异常是可以接受的，但又不想让这些异常影响程序运行，所以就得进行捕获抛出。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-vue中this的作用域" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/06/07/vue%E4%B8%ADthis%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/"
-    >vue中this的作用域</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/06/07/vue%E4%B8%ADthis%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
-  <time datetime="2018-06-07T07:29:54.000Z" itemprop="datePublished">2018-06-07</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"><a href="#页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。" class="headerlink" title="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"></a><em>页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。</em></h2><p>原来函数内的this和函数外的this不是一回事，咱们可以打印一下<br>打印的结果<br>由此可知，在该函数内直接用this可以获取此marker内存储的信息，如我存的address，cost等等。</p>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a><em>解决方法</em></h1><p>若想要在该方法里使用vue，则可以在函数外设置一个变量指向this（即该vue对象），在方法体内调用该变量即可。主要是避免this的重合。</p>
 
       
       <!-- reward -->
