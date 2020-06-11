@@ -81,6 +81,78 @@
     
     
     
+    <article id="post-vue页面空白" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/"
+    >vue页面空白</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/" class="article-date">
+  <time datetime="2018-05-26T08:27:59.000Z" itemprop="datePublished">2018-05-26</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>当我们将项目打包后，从dist文件夹里点开首页会发现页面是空白的。打包前运行得好好地，怎么在这里就变成空白的了呢？</p>
+<h2 id="找到"><a href="#找到" class="headerlink" title="\找到**"></a><strong><em>\</em>找到**</strong></h2><p> <img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%871.png" alt="图片1">  </p>
+<h2 id="然后"><a href="#然后" class="headerlink" title="\然后**"></a><strong><em>\</em>然后**</strong></h2><p><img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%872.png" alt="图片2"></p>
+<p>原因在资源配置上，把图中的assetsPublicPath改成’./‘就ok了。因为打包后你的资源访问不能再从根目录开始了，得改为当前目录。</p>
+<h1 id="css图片加载不出来"><a href="#css图片加载不出来" class="headerlink" title="\css图片加载不出来**"></a><strong><em>\</em>css图片加载不出来**</strong></h1><p>还得设置一下css的资源访问路径</p>
+<h2 id="打开"><a href="#打开" class="headerlink" title="\打开**"></a><strong><em>\</em>打开**</strong></h2><p> <img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%873.png" alt="图片3"></p>
+<h2 id="添加"><a href="#添加" class="headerlink" title="\添加**"></a><strong><em>\</em>添加**</strong></h2><p><img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%874.png" alt="图片4"></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-mysql数据库空闲8小时自动断开连接" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 

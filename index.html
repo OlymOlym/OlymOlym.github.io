@@ -81,6 +81,86 @@
     
     
     
+    <article id="post-文件读写操作" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/06/11/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C/"
+    >文件读写操作</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/06/11/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time datetime="2020-06-11T01:10:01.000Z" itemprop="datePublished">2020-06-11</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>最近写了个脚本，需要解析txt文件，所以需要文件的读写操作，整理记录一下。</p>
+<h2 id="连接资源"><a href="#连接资源" class="headerlink" title="连接资源"></a>连接资源</h2><p>打开资源两种方法，一种直接打开，手动关闭。</p>
+<p>打开          dir=open(文件路径,”r”)</p>
+<p>手动关闭  dir.close()</p>
+<p>另一种借用with语句，它非常适合对资源进行访问的场合，确保无论发生什么异常都能执行资源关闭操作。</p>
+<p>with open(“文件路径”,”w”) as f:</p>
+<h2 id="参数r-w-a"><a href="#参数r-w-a" class="headerlink" title="参数r,w,a"></a>参数r,w,a</h2><p>open中第二个参数表示对资源采取什么操作，一般常用的有”r”,”w”,”a”</p>
+<p>“r”:打开一个文件只读操作。</p>
+<p>“w”:打开一个文件清空重新编辑，如果文件不存在就创建文件</p>
+<p>“a”:打开一个文件追加操作，如果文件不存在就创建</p>
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><h3 id="写操作"><a href="#写操作" class="headerlink" title="写操作"></a>写操作</h3><p>1 write()需要传入一个字符串做为参数,否则会报错</p>
+<p>2 writelines()既可以传入字符串又可以传入一个字符序列,并将该字符序列写入文件，一行一个</p>
+<h3 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h3><p>1.read()获取到文件所有字符，格式为字符串</p>
+<p>2.readline()一次返回一行数据，格式为字符串</p>
+<p>3.readlines()一次返回所有行数据，格式为list</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-WGS84、GCJ2和BG09坐标转化" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -799,78 +879,6 @@
       
       <h2 id="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"><a href="#页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。" class="headerlink" title="页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。"></a><em>页面用到了跳转，用路由时报错，没有push方法，此时网页会报下图的错误。</em></h2><p>原来函数内的this和函数外的this不是一回事，咱们可以打印一下<br>打印的结果<br>由此可知，在该函数内直接用this可以获取此marker内存储的信息，如我存的address，cost等等。</p>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a><em>解决方法</em></h1><p>若想要在该方法里使用vue，则可以在函数外设置一个变量指向this（即该vue对象），在方法体内调用该变量即可。主要是避免this的重合。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-vue页面空白" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/"
-    >vue页面空白</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/" class="article-date">
-  <time datetime="2018-05-26T08:27:59.000Z" itemprop="datePublished">2018-05-26</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>当我们将项目打包后，从dist文件夹里点开首页会发现页面是空白的。打包前运行得好好地，怎么在这里就变成空白的了呢？</p>
-<h2 id="找到"><a href="#找到" class="headerlink" title="\找到**"></a><strong><em>\</em>找到**</strong></h2><p> <img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%871.png" alt="图片1">  </p>
-<h2 id="然后"><a href="#然后" class="headerlink" title="\然后**"></a><strong><em>\</em>然后**</strong></h2><p><img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%872.png" alt="图片2"></p>
-<p>原因在资源配置上，把图中的assetsPublicPath改成’./‘就ok了。因为打包后你的资源访问不能再从根目录开始了，得改为当前目录。</p>
-<h1 id="css图片加载不出来"><a href="#css图片加载不出来" class="headerlink" title="\css图片加载不出来**"></a><strong><em>\</em>css图片加载不出来**</strong></h1><p>还得设置一下css的资源访问路径</p>
-<h2 id="打开"><a href="#打开" class="headerlink" title="\打开**"></a><strong><em>\</em>打开**</strong></h2><p> <img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%873.png" alt="图片3"></p>
-<h2 id="添加"><a href="#添加" class="headerlink" title="\添加**"></a><strong><em>\</em>添加**</strong></h2><p><img src="/2018/05/26/vue%E9%A1%B5%E9%9D%A2%E7%A9%BA%E7%99%BD/%E5%9B%BE%E7%89%874.png" alt="图片4"></p>
 
       
       <!-- reward -->
