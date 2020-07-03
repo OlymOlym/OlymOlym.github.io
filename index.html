@@ -81,6 +81,107 @@
     
     
     
+    <article id="post-hdfs概念" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/07/02/hdfs%E6%A6%82%E5%BF%B5/"
+    >hdfs概念</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/07/02/hdfs%E6%A6%82%E5%BF%B5/" class="article-date">
+  <time datetime="2020-07-02T07:35:23.000Z" itemprop="datePublished">2020-07-02</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h1 id="HDFS概念"><a href="#HDFS概念" class="headerlink" title="HDFS概念"></a>HDFS概念</h1><p>Hadoop自带一个分布式文件系统即Hadoop Distributed Filesystem。Hadoop有一个抽象的文件系统概念，hdfs知识其中的一个实现。自带的命令行解释器可以操作所有的Hadoop文件系统命令。尽管MapReduce也可以访问任何文件系统，但处理大数据集时，建议还是选择一个有数据本地优化的分布式文件系统，例如：HDFS等。</p>
+<h2 id="1-数据块"><a href="#1-数据块" class="headerlink" title="1.数据块"></a>1.数据块</h2><p>数据块是磁盘进行数据读/写的最小单位。HDFS也有块的概念，默认为128MB。但如果只有一个1M小文件占用在一个块里，文件只使用1M磁盘空间。</p>
+<h3 id="好处："><a href="#好处：" class="headerlink" title="好处："></a>好处：</h3><p>（1）文件大小不再限制于磁盘的容量</p>
+<p>（2）使用抽象块而不是整个文件作为存储单元，大大简化了存储子系统的设计。</p>
+<h2 id="2-namenode和datanode"><a href="#2-namenode和datanode" class="headerlink" title="2.namenode和datanode"></a>2.namenode和datanode</h2><p>namenode含有：命名空间镜像文件和编辑日志文件。存有文件每个块所在数据节点信息，但并不永久保存块的位置信息，这些信息在系统根据数据节点信息重建。</p>
+<h3 id="2-1namenode容错"><a href="#2-1namenode容错" class="headerlink" title="2.1namenode容错"></a>2.1namenode容错</h3><p>两种机制，第一种<strong>机制备份</strong>。Hadoop通过配置使namenode在多个文件系统上保持元数据持久状态。一般写入一个远程挂载的网络文件系统（NFS）。实时同步且原子操作。第二种机制运行一个<strong>辅助namenode</strong>。主要作用是定期合并比那几日志和命名空间镜像。因为滞后，难免会损失很多数据。</p>
+<p>新的namenode恢复响应服务：（1）将命名空间映像导入内存中（2）重新编辑日志（3）接收到足够多来自datanode的数据块报告并推出安全模式。</p>
+<h4 id="Hadoop2作出改进："><a href="#Hadoop2作出改进：" class="headerlink" title="Hadoop2作出改进："></a>Hadoop2作出改进：</h4><p>hadoop2增加了对HDFS高可用性的支持。配置了（active-standby）namenode。当active的namenode失效后，standby的namenode就会接管任务，不会有明显中断。namenode之间需要高可用共享存储实现编辑日志的共享，备用namenode接管工作后，要读取共享编辑日志，已实现与活动namenode状态同步。datanode同时向两个namenode发送数据块处理报告。</p>
+<p>两种高可用性共享存储：NFS过滤器和群体日志管理器（QJM）</p>
+<p>QJM被推荐与大多HDFS中，以一组日志节点的形式运行，每一次编辑必须写入多数日志节点，所以可以允许一个丢失。</p>
+<h3 id="2-2联邦HDFS"><a href="#2-2联邦HDFS" class="headerlink" title="2.2联邦HDFS"></a>2.2联邦HDFS</h3><p>因为namenode内存中储存着数据块和文件的引用关系，这意味着内存成为约束文件系统的瓶颈。2版本以后允许添加namenode实现扩展，每个namenode管理一部分命名空间，叫命名空间卷，由命名空间的元数据和一个数据块池组成，数据块池包含该命名空间下文件的所有数据块。命名空间卷之间相互独立，并不互相通信。</p>
+<p>集群中的datanode需要注册到每个namenode，可以存储着多个数据池的数据块。</p>
+<p>datdenode会根据数据块池id，向对应的namenode汇报块信息。</p>
+<h2 id="3-Java接口"><a href="#3-Java接口" class="headerlink" title="3.Java接口"></a>3.Java接口</h2><p>主要深入了解一下Hadoop中的Filesystem类，它是与Hadoop某一文件系统进行交互的API。HDFS的是DistributeFilesystem类，但不能在不同文件系统移植。</p>
+<h3 id="3-1读取数据"><a href="#3-1读取数据" class="headerlink" title="3.1读取数据"></a>3.1读取数据</h3><h4 id="方法一：从Hadoop-URL读取数据"><a href="#方法一：从Hadoop-URL读取数据" class="headerlink" title="方法一：从Hadoop URL读取数据"></a>方法一：从Hadoop URL读取数据</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">URLCat</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        URL.setURLStreamHandlerFactory(<span class="keyword">new</span> FsUrlStreamHandlerFactory());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        InputStream in =<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            in=<span class="keyword">new</span> URL(args[<span class="number">0</span>]).openStream();</span><br><span class="line">            IOUtils.copyBytes(in,System.out,<span class="number">4096</span>,<span class="keyword">false</span>);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            IOUtils.closeStream(in);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>借用Hadoop中IOUtils类进行读取操作。</p>
+<h4 id="方法二：通过Filesystem-API读取数据"><a href="#方法二：通过Filesystem-API读取数据" class="headerlink" title="方法二：通过Filesystem API读取数据"></a>方法二：通过Filesystem API读取数据</h4><p>有时候不能在应用中设置URLStreamHandlerFactory，则需要Filesystem API来打开文件的输入流。先获取到FileSystem对象，然后通过open（）方法打开输入流。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileSystemCat</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        String uri=args[<span class="number">0</span>];</span><br><span class="line">        Configuration conf=<span class="keyword">new</span> Configuration();</span><br><span class="line">        FileSystem fs=FileSystem.get(URI.create(uri),conf);</span><br><span class="line">        InputStream in=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            in=fs.open(<span class="keyword">new</span> Path(uri));</span><br><span class="line">            IOUtils.copyBytes(in,System.out,<span class="number">4096</span>,<span class="keyword">false</span>);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            IOUtils.closeStream(in);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2写入数据"><a href="#3-2写入数据" class="headerlink" title="3.2写入数据"></a>3.2写入数据</h3><p>首先读取本地文件流，然后获取FileSystem对象，给文件准备一个Path对象，返回一个用于写入数据的输出流。其中progressable用于传递回调接口，返回进度。create时，如果没有目录，会自动创建，当然也可以调用mkdirs（Path f）创建。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileCopyWithProgress</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        String localSrc=args[<span class="number">0</span>];</span><br><span class="line">        String dst=args[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        InputStream in = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(localSrc));</span><br><span class="line">        Configuration conf=<span class="keyword">new</span> Configuration();</span><br><span class="line">        FileSystem fs=FileSystem.get(URI.create(dst),conf);</span><br><span class="line">        OutputStream out=fs.create(<span class="keyword">new</span> Path(dst), <span class="keyword">new</span> Progressable() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">progress</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"."</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        IOUtils.copyBytes(in,out,<span class="number">4096</span>,<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不过，HDFS只允许在文件末尾写入。</p>
+<h3 id="3-3查询文件系统"><a href="#3-3查询文件系统" class="headerlink" title="3.3查询文件系统"></a>3.3查询文件系统</h3><p>FileSystem里边有FileStatus类，封装了元数据，调用getFileStatus（）方法即可。</p>
+<p>如果查询多个，则需要listStatus（）方法。</p>
+<h4 id="3-3-1通配符"><a href="#3-3-1通配符" class="headerlink" title="3.3.1通配符"></a>3.3.1通配符</h4><p>FileSystem提供了globStatus（）方法返回路径格式，Hadoop支持的通配符和shell一样。</p>
+<p>例如：[ab]匹配其中一个字符；[a-b]匹配a到b范围内的字符等。</p>
+<h4 id="3-3-2PathFilter对象"><a href="#3-3-2PathFilter对象" class="headerlink" title="3.3.2PathFilter对象"></a>3.3.2PathFilter对象</h4><p>可以完成通配符不能完成的操作。常用于排除个别文件。同时过滤器还能完成通配符和正则表达式都不能完成的匹配任务，例如非根据文件名过滤的要求。</p>
+<h3 id="3-4-删除数据"><a href="#3-4-删除数据" class="headerlink" title="3.4 删除数据"></a>3.4 删除数据</h3><p>使用delete（Path f，boolean recursive）方法，如果目录有文件，需要指定recursive是否强制删除。</p>
+<h2 id="4-数据流"><a href="#4-数据流" class="headerlink" title="4.数据流"></a>4.数据流</h2><p>由于是HDFS文件系统，所以由DistributedFileSystem来负责文件调度操作。如果是读取文件，则返回FSDataInputStream对象，负责寻找datanode进行数据读取，整个读取切换datanode过程由FSDataInputSystem自主完成，客户感受不到，以为是一个连续的流。同时，在FSDataInputSystem读取数据过程中，如果datanode故障，会记住这个节点，不会反复读。FSDataInputStream还会校验数据是否完整，如果发现损坏，则从其他datanode获取副本，并上报给namenode。</p>
+<p><img src="/2020/07/02/hdfs%E6%A6%82%E5%BF%B5/1.png" alt="1"></p>
+<p>设计的重点是，namenode只需要告诉客户端datanode信息就可以，客户端可以自己连接datanode获取数据，减少与namenode交互过程。namenode只需要响应块位置请求，无需响应数据请求。</p>
+<p>如果是写入数据，则通过create创建DitstributedFileSystem对象，然后在namenode里检查一下，确认无误则在命名空间里生成一个文件，并产生一条记录。然后返回一个FSDataOutputStream对象，负责与datanode交接。FSDataOutputSystem将数据分为一个个数据包，写入“数据队列”。然后选出合适储存的一组Datanode，开始输入。然后FSDataOutputStream维护着一个“确认队列”，收到所有datanode确认消息后，数据包才会从确认队列删除。</p>
+<p>如果有datanode发生故障，关闭管道，数据包返回队列最前端，对故障datanode进行标识，以便删除已写入的数据。所有数据都写入后，告知namenode，等待确认。</p>
+<p><img src="/2020/07/02/hdfs%E6%A6%82%E5%BF%B5/2.png" alt="2"></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+  
+  
+
+</article>
+    
     <article id="post-跨服务器数据传输" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -130,10 +231,13 @@
 <p>然后就可以采用put和get进行获取和发送操作</p>
 <figure class="highlight plain"><figcaption><span>y</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sftp.put(本机地址,发送地址)</span><br></pre></td></tr></table></figure>
 
+<h2 id="命令行操作"><a href="#命令行操作" class="headerlink" title="命令行操作"></a>命令行操作</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cmd = <span class="string">'ping 127.0.0.1'</span></span><br><span class="line"><span class="comment">#cmd = 'ls -l;ifconfig'       #多个命令用;隔开</span></span><br><span class="line">stdin, stdout, stderr = ssh.exec_command(cmd)</span><br><span class="line">result = stdout.read()</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> result:</span><br><span class="line">    result = stderr.read()</span><br><span class="line">ssh.close()</span><br><span class="line">print(result.decode())</span><br></pre></td></tr></table></figure>
 
+<p>stdout可以获取返回值，stderr可有获取异常。</p>
+<p>注意如果要进行多条命令行操作，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conn.exec_command(<span class="string">'ls -ll'</span>)</span><br><span class="line">  conn.exec_command(<span class="string">'cd /home/test;pwd'</span>)  <span class="comment">#cd需要特别处理</span></span><br><span class="line">  conn.exec_command(<span class="string">'pwd'</span>)</span><br><span class="line">  conn.exec_command(<span class="string">'tree /home/test'</span>)</span><br></pre></td></tr></table></figure>
 
-
-
+<p>则不能采用非交互式方法连接（Transport），应该使用交互式方法（SSHClient）连接。</p>
 
       
       <!-- reward -->
@@ -827,73 +931,6 @@
 <p>遗传学家霍尔丹曾说过：”人类是一种常规动物，并不能模仿自然界的无序。”生活中有各种“随机性”的错觉，事实上，人们很难抹去对随机的执念，怕比例失衡。比如投硬币多次正面后，总会不自觉的想象一些反面的情况。</p>
 <p>贝叶斯定理可以通过反馈不断更新概率从而精准预测。不需要考虑其他方面因素，可以成为先验概率或边缘概率。</p>
 <p>推断统计学中，我们要习惯不要说接受原假设，即使原假设概率很大，也只能用不能拒绝这样的字眼，只有备选假设才能接受。</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-</article>
-    
-    <article id="post-java异常" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2018/06/19/java%E5%BC%82%E5%B8%B8/"
-    >java异常</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2018/06/19/java%E5%BC%82%E5%B8%B8/" class="article-date">
-  <time datetime="2018-06-19T07:11:06.000Z" itemprop="datePublished">2018-06-19</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>敲代码，肯定会遇到各种问题，有的是交给计算机处理的error，然后是咱们看的异常exception。而异常中RuntimeException是不能进行捕获抛异常的，原因如下。</p>
-<h2 id="运行时异常和编译时异常"><a href="#运行时异常和编译时异常" class="headerlink" title="运行时异常和编译时异常"></a><em>运行时异常和编译时异常</em></h2><p>咱们的RuntimeException就属于运行时异常，至于为什么不进行处理，因为这些异常是咱们写的代码有问题，例如数组下标越界等，是咱们代码的问题，所以不能捕获这种异常，而是应该进行修改。<br>不是此类异常的，就是编译时异常了，这些异常是可以接受的，但又不想让这些异常影响程序运行，所以就得进行捕获抛出。</p>
 
       
       <!-- reward -->

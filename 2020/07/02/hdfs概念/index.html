@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    跨服务器数据传输 |  奥林博客
+    hdfs概念 |  奥林博客
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -42,7 +42,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-跨服务器数据传输" class="article article-type-post" itemscope
+  <article id="post-hdfs概念" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -50,7 +50,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  跨服务器数据传输
+  hdfs概念
 </h1>
  
 
@@ -59,8 +59,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/06/11/%E8%B7%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="article-date">
-  <time datetime="2020-06-11T02:45:25.000Z" itemprop="datePublished">2020-06-11</time>
+      <a href="/2020/07/02/hdfs%E6%A6%82%E5%BF%B5/" class="article-date">
+  <time datetime="2020-07-02T07:35:23.000Z" itemprop="datePublished">2020-07-02</time>
 </a>
       
       
@@ -70,7 +70,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">307</span>
+            <span class="post-count">1.8k</span>
         </span>
     </span>
 
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">6 min</span>
         </span>
     </span>
 </div>
@@ -104,26 +104,42 @@
       
 
       
-      <h2 id="Paramiko介绍"><a href="#Paramiko介绍" class="headerlink" title="Paramiko介绍"></a>Paramiko介绍</h2><p>paramiko包含两个核心组件：SSHClient和SFTPClient。</p>
-<p>SSHClient的作用类似于Linux的ssh命令，是对SSH会话的封装，该类封装了传输(Transport)，通道(Channel)及SFTPClient建立的方法(open_sftp)，通常用于执行远程命令。</p>
-<p>SFTPClient的作用类似与Linux的sftp命令，是对SFTP客户端的封装，用以实现远程文件操作，如文件上传、下载、修改文件权限等操作。</p>
-<h3 id="1-SSHClient"><a href="#1-SSHClient" class="headerlink" title="1.SSHClient"></a>1.SSHClient</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> paramiko</span><br><span class="line">ssh = paramiko.SSHClient()</span><br><span class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</span><br><span class="line">ssh.connect(<span class="string">"某IP地址"</span>,<span class="number">22</span>,<span class="string">"用户名"</span>, <span class="string">"口令"</span>)</span><br></pre></td></tr></table></figure>
+      <h1 id="HDFS概念"><a href="#HDFS概念" class="headerlink" title="HDFS概念"></a>HDFS概念</h1><p>Hadoop自带一个分布式文件系统即Hadoop Distributed Filesystem。Hadoop有一个抽象的文件系统概念，hdfs知识其中的一个实现。自带的命令行解释器可以操作所有的Hadoop文件系统命令。尽管MapReduce也可以访问任何文件系统，但处理大数据集时，建议还是选择一个有数据本地优化的分布式文件系统，例如：HDFS等。</p>
+<h2 id="1-数据块"><a href="#1-数据块" class="headerlink" title="1.数据块"></a>1.数据块</h2><p>数据块是磁盘进行数据读/写的最小单位。HDFS也有块的概念，默认为128MB。但如果只有一个1M小文件占用在一个块里，文件只使用1M磁盘空间。</p>
+<h3 id="好处："><a href="#好处：" class="headerlink" title="好处："></a>好处：</h3><p>（1）文件大小不再限制于磁盘的容量</p>
+<p>（2）使用抽象块而不是整个文件作为存储单元，大大简化了存储子系统的设计。</p>
+<h2 id="2-namenode和datanode"><a href="#2-namenode和datanode" class="headerlink" title="2.namenode和datanode"></a>2.namenode和datanode</h2><p>namenode含有：命名空间镜像文件和编辑日志文件。存有文件每个块所在数据节点信息，但并不永久保存块的位置信息，这些信息在系统根据数据节点信息重建。</p>
+<h3 id="2-1namenode容错"><a href="#2-1namenode容错" class="headerlink" title="2.1namenode容错"></a>2.1namenode容错</h3><p>两种机制，第一种<strong>机制备份</strong>。Hadoop通过配置使namenode在多个文件系统上保持元数据持久状态。一般写入一个远程挂载的网络文件系统（NFS）。实时同步且原子操作。第二种机制运行一个<strong>辅助namenode</strong>。主要作用是定期合并比那几日志和命名空间镜像。因为滞后，难免会损失很多数据。</p>
+<p>新的namenode恢复响应服务：（1）将命名空间映像导入内存中（2）重新编辑日志（3）接收到足够多来自datanode的数据块报告并推出安全模式。</p>
+<h4 id="Hadoop2作出改进："><a href="#Hadoop2作出改进：" class="headerlink" title="Hadoop2作出改进："></a>Hadoop2作出改进：</h4><p>hadoop2增加了对HDFS高可用性的支持。配置了（active-standby）namenode。当active的namenode失效后，standby的namenode就会接管任务，不会有明显中断。namenode之间需要高可用共享存储实现编辑日志的共享，备用namenode接管工作后，要读取共享编辑日志，已实现与活动namenode状态同步。datanode同时向两个namenode发送数据块处理报告。</p>
+<p>两种高可用性共享存储：NFS过滤器和群体日志管理器（QJM）</p>
+<p>QJM被推荐与大多HDFS中，以一组日志节点的形式运行，每一次编辑必须写入多数日志节点，所以可以允许一个丢失。</p>
+<h3 id="2-2联邦HDFS"><a href="#2-2联邦HDFS" class="headerlink" title="2.2联邦HDFS"></a>2.2联邦HDFS</h3><p>因为namenode内存中储存着数据块和文件的引用关系，这意味着内存成为约束文件系统的瓶颈。2版本以后允许添加namenode实现扩展，每个namenode管理一部分命名空间，叫命名空间卷，由命名空间的元数据和一个数据块池组成，数据块池包含该命名空间下文件的所有数据块。命名空间卷之间相互独立，并不互相通信。</p>
+<p>集群中的datanode需要注册到每个namenode，可以存储着多个数据池的数据块。</p>
+<p>datdenode会根据数据块池id，向对应的namenode汇报块信息。</p>
+<h2 id="3-Java接口"><a href="#3-Java接口" class="headerlink" title="3.Java接口"></a>3.Java接口</h2><p>主要深入了解一下Hadoop中的Filesystem类，它是与Hadoop某一文件系统进行交互的API。HDFS的是DistributeFilesystem类，但不能在不同文件系统移植。</p>
+<h3 id="3-1读取数据"><a href="#3-1读取数据" class="headerlink" title="3.1读取数据"></a>3.1读取数据</h3><h4 id="方法一：从Hadoop-URL读取数据"><a href="#方法一：从Hadoop-URL读取数据" class="headerlink" title="方法一：从Hadoop URL读取数据"></a>方法一：从Hadoop URL读取数据</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">URLCat</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        URL.setURLStreamHandlerFactory(<span class="keyword">new</span> FsUrlStreamHandlerFactory());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        InputStream in =<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            in=<span class="keyword">new</span> URL(args[<span class="number">0</span>]).openStream();</span><br><span class="line">            IOUtils.copyBytes(in,System.out,<span class="number">4096</span>,<span class="keyword">false</span>);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            IOUtils.closeStream(in);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-Transport"><a href="#2-Transport" class="headerlink" title="2.Transport"></a>2.Transport</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> paramiko</span><br><span class="line">t = paramiko.Transport((<span class="string">"主机"</span>,<span class="string">"端口"</span>))</span><br><span class="line">t.connect(username = <span class="string">"用户名"</span>, password = <span class="string">"口令"</span>)</span><br></pre></td></tr></table></figure>
+<p>借用Hadoop中IOUtils类进行读取操作。</p>
+<h4 id="方法二：通过Filesystem-API读取数据"><a href="#方法二：通过Filesystem-API读取数据" class="headerlink" title="方法二：通过Filesystem API读取数据"></a>方法二：通过Filesystem API读取数据</h4><p>有时候不能在应用中设置URLStreamHandlerFactory，则需要Filesystem API来打开文件的输入流。先获取到FileSystem对象，然后通过open（）方法打开输入流。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileSystemCat</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        String uri=args[<span class="number">0</span>];</span><br><span class="line">        Configuration conf=<span class="keyword">new</span> Configuration();</span><br><span class="line">        FileSystem fs=FileSystem.get(URI.create(uri),conf);</span><br><span class="line">        InputStream in=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            in=fs.open(<span class="keyword">new</span> Path(uri));</span><br><span class="line">            IOUtils.copyBytes(in,System.out,<span class="number">4096</span>,<span class="keyword">false</span>);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            IOUtils.closeStream(in);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="sftp传输"><a href="#sftp传输" class="headerlink" title="sftp传输"></a>sftp传输</h2><p>基于Transport方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sftp = paramiko.SFTPClient.from_transport(client)</span><br></pre></td></tr></table></figure>
+<h3 id="3-2写入数据"><a href="#3-2写入数据" class="headerlink" title="3.2写入数据"></a>3.2写入数据</h3><p>首先读取本地文件流，然后获取FileSystem对象，给文件准备一个Path对象，返回一个用于写入数据的输出流。其中progressable用于传递回调接口，返回进度。create时，如果没有目录，会自动创建，当然也可以调用mkdirs（Path f）创建。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileCopyWithProgress</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        String localSrc=args[<span class="number">0</span>];</span><br><span class="line">        String dst=args[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        InputStream in = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(localSrc));</span><br><span class="line">        Configuration conf=<span class="keyword">new</span> Configuration();</span><br><span class="line">        FileSystem fs=FileSystem.get(URI.create(dst),conf);</span><br><span class="line">        OutputStream out=fs.create(<span class="keyword">new</span> Path(dst), <span class="keyword">new</span> Progressable() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">progress</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"."</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        IOUtils.copyBytes(in,out,<span class="number">4096</span>,<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>然后就可以采用put和get进行获取和发送操作</p>
-<figure class="highlight plain"><figcaption><span>y</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sftp.put(本机地址,发送地址)</span><br></pre></td></tr></table></figure>
-
-<h2 id="命令行操作"><a href="#命令行操作" class="headerlink" title="命令行操作"></a>命令行操作</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cmd = <span class="string">'ping 127.0.0.1'</span></span><br><span class="line"><span class="comment">#cmd = 'ls -l;ifconfig'       #多个命令用;隔开</span></span><br><span class="line">stdin, stdout, stderr = ssh.exec_command(cmd)</span><br><span class="line">result = stdout.read()</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> result:</span><br><span class="line">    result = stderr.read()</span><br><span class="line">ssh.close()</span><br><span class="line">print(result.decode())</span><br></pre></td></tr></table></figure>
-
-<p>stdout可以获取返回值，stderr可有获取异常。</p>
-<p>注意如果要进行多条命令行操作，如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conn.exec_command(<span class="string">'ls -ll'</span>)</span><br><span class="line">  conn.exec_command(<span class="string">'cd /home/test;pwd'</span>)  <span class="comment">#cd需要特别处理</span></span><br><span class="line">  conn.exec_command(<span class="string">'pwd'</span>)</span><br><span class="line">  conn.exec_command(<span class="string">'tree /home/test'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>则不能采用非交互式方法连接（Transport），应该使用交互式方法（SSHClient）连接。</p>
+<p>不过，HDFS只允许在文件末尾写入。</p>
+<h3 id="3-3查询文件系统"><a href="#3-3查询文件系统" class="headerlink" title="3.3查询文件系统"></a>3.3查询文件系统</h3><p>FileSystem里边有FileStatus类，封装了元数据，调用getFileStatus（）方法即可。</p>
+<p>如果查询多个，则需要listStatus（）方法。</p>
+<h4 id="3-3-1通配符"><a href="#3-3-1通配符" class="headerlink" title="3.3.1通配符"></a>3.3.1通配符</h4><p>FileSystem提供了globStatus（）方法返回路径格式，Hadoop支持的通配符和shell一样。</p>
+<p>例如：[ab]匹配其中一个字符；[a-b]匹配a到b范围内的字符等。</p>
+<h4 id="3-3-2PathFilter对象"><a href="#3-3-2PathFilter对象" class="headerlink" title="3.3.2PathFilter对象"></a>3.3.2PathFilter对象</h4><p>可以完成通配符不能完成的操作。常用于排除个别文件。同时过滤器还能完成通配符和正则表达式都不能完成的匹配任务，例如非根据文件名过滤的要求。</p>
+<h3 id="3-4-删除数据"><a href="#3-4-删除数据" class="headerlink" title="3.4 删除数据"></a>3.4 删除数据</h3><p>使用delete（Path f，boolean recursive）方法，如果目录有文件，需要指定recursive是否强制删除。</p>
+<h2 id="4-数据流"><a href="#4-数据流" class="headerlink" title="4.数据流"></a>4.数据流</h2><p>由于是HDFS文件系统，所以由DistributedFileSystem来负责文件调度操作。如果是读取文件，则返回FSDataInputStream对象，负责寻找datanode进行数据读取，整个读取切换datanode过程由FSDataInputSystem自主完成，客户感受不到，以为是一个连续的流。同时，在FSDataInputSystem读取数据过程中，如果datanode故障，会记住这个节点，不会反复读。FSDataInputStream还会校验数据是否完整，如果发现损坏，则从其他datanode获取副本，并上报给namenode。</p>
+<p><img src="/2020/07/02/hdfs%E6%A6%82%E5%BF%B5/1.png" alt="1"></p>
+<p>设计的重点是，namenode只需要告诉客户端datanode信息就可以，客户端可以自己连接datanode获取数据，减少与namenode交互过程。namenode只需要响应块位置请求，无需响应数据请求。</p>
+<p>如果是写入数据，则通过create创建DitstributedFileSystem对象，然后在namenode里检查一下，确认无误则在命名空间里生成一个文件，并产生一条记录。然后返回一个FSDataOutputStream对象，负责与datanode交接。FSDataOutputSystem将数据分为一个个数据包，写入“数据队列”。然后选出合适储存的一组Datanode，开始输入。然后FSDataOutputStream维护着一个“确认队列”，收到所有datanode确认消息后，数据包才会从确认队列删除。</p>
+<p>如果有datanode发生故障，关闭管道，数据包返回队列最前端，对故障datanode进行标识，以便删除已写入的数据。所有数据都写入后，告知namenode，等待确认。</p>
+<p><img src="/2020/07/02/hdfs%E6%A6%82%E5%BF%B5/2.png" alt="2"></p>
 
       
       <!-- reward -->
@@ -192,7 +208,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/06/11/%E8%B7%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/07/02/hdfs%E6%A6%82%E5%BF%B5/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -208,19 +224,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/07/02/hdfs%E6%A6%82%E5%BF%B5/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            hdfs概念
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/06/11/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C/" class="article-nav-link">
+      <a href="/2020/06/11/%E8%B7%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">文件读写操作</div>
+        <div class="article-nav-title">跨服务器数据传输</div>
       </a>
     
   </nav>
